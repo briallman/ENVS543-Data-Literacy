@@ -1,0 +1,69 @@
+---
+title: "Briana's Resume"
+author: Briana Loftus
+date: 09-03-2024
+format: html
+editor: visual
+---
+
+# Briana Loftus
+
+Contact: brianaloftus11\@gmail.com — (571) 316 - 8347 — [LinkedIn](https://www.linkedin.com/in/briana-loftus-953550271/)
+
+### Abstract:
+
+Current graduate student at Virginia Commonwealth University pursuing a Master of Environmental Studies with a certificate in Geographic Information Systems. My passion lies in bridging the gap between scientific research and public understanding, fostering informed engagement with critical issues through interactive maps, infographics, and data visualization.
+
+### Education:
+
+**Virginia Commonwealth University (2024 - December 2025)**
+
+*M.Envs - Environmental Studies*
+
+**Virginia Commonwealth University (2020 - December 2023)**
+
+*B.S. Environmental Studies: Cumulative GPA = 4.0*
+
+### Work Experience:
+
+#### Environmental Specialist I - Monitoring Specialist (Water)
+
+**Virginia Department of Environmental Quality \| June 2023 - Present**
+
+-   Conducts in-depth statistical analyses of watershed temperature impairment data using R and Microsoft Excel.
+
+-   Generates comprehensive maps and other data visualizations using R, R-Studio, ArcGIS Online, and ArcGIS Pro.
+
+-   Gathers field data to support research and analysis. Collaborates with regional offices to develop and implement new projects.
+
+-   Actively involved in a TMDL priority project for the Eastern Shore, Virginia swamp water characterization, and temperature monitoring.
+
+#### Contractor
+
+**U.S. Fish and Wildlife Service \| October 2023 - July 2024**
+
+-   Designed a user-friendly Survey123 survey, tailored to the needs of the Golden-winged Warbler Working Group's habitat management challenge, capturing key data on land-use practices and conservation efforts.
+
+-   Empowered stakeholders with real-time insights into project progress through an interactive data hub crafted in Experience Builder.
+
+-   Transformed complex project data into a captivating narrative through a StoryMap, effectively communicating progress and achievements.
+
+#### Fulfillment Specialist
+
+**Target (Part-time) \| June 2022 - Present**
+
+-   Handled product within the warehouse to ensure accurate processing of merchandise. Safely operated power equipment, warehouse technology, and all other fulfillment systems.
+
+#### Preceptor (Data Literacy)
+
+**Virginia Commonwealth University \| Aug 2022 - Dec 2022**
+
+-   Facilitated learning by assisting students in meeting personal and course objectives through weekly attendance to class and hosting office hours.
+
+-   Assisted the professor in grading student’s assignment submissions.
+
+#### Customer Service Representative
+
+**Lowe's Companies, Inc. (Seasonal) \| July 2020 - August 2021**
+
+-   Received a Service Star Award for going above and beyond “SMART” customer service standards. Coordinated with customers in choosing products based on their needs and budget requirement, informing them on store benefits and sales, and finalizing transactions at the register.
