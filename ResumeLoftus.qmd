@@ -6,7 +6,7 @@ format: html
 editor: visual
 ---
 
-# Briana Loftus
+## Briana Loftus
 
 Contact: brianaloftus11\@gmail.com — (571) 316 - 8347 — [LinkedIn](https://www.linkedin.com/in/briana-loftus-953550271/)
 
