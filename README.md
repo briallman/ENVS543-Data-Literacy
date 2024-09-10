@@ -9,3 +9,8 @@ My First Markdown: https://briallman.github.io/ENVS543-Data-Literacy/FirstMarkdo
 Resume Assignment Markdown:
 
 Resume Assignment Presentation:
+
+
+- [Resume](https://briallman.github.io/ENVS543-Data-Literacy/ResumeLoftus.html)
+
+
