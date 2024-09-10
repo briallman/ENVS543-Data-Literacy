@@ -830,168 +830,145 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a><span class="fu">## Student Learning Objectives</span></span>
 <span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a>At the end of this topic, you should be able to:  </span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a>At the end of this topic, you should be able to:</span>
 <span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Describe characteristics of numeric, character, logical, and date data types.  </span>
-<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Use introspection and coercion for basic data types. </span>
-<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a><span class="ss"> - </span>Perform operations on included data types.  </span>
+<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Describe characteristics of numeric, character, logical, and date data types.\</span>
+<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use introspection and coercion for basic data types.</span>
+<span id="cb61-22"><a href="#cb61-22" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Perform operations on included data types.</span>
 <span id="cb61-23"><a href="#cb61-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-24"><a href="#cb61-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-25"><a href="#cb61-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Activity</span></span>
-<span id="cb61-26"><a href="#cb61-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-27"><a href="#cb61-27" aria-hidden="true" tabindex="-1"></a>The following markdown has a set of questions followed by a chunk for you to put in code to answer the question.  Fill them all out as indicated.</span>
-<span id="cb61-28"><a href="#cb61-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-24"><a href="#cb61-24" aria-hidden="true" tabindex="-1"></a><span class="fu">## Activity</span></span>
+<span id="cb61-25"><a href="#cb61-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-26"><a href="#cb61-26" aria-hidden="true" tabindex="-1"></a>The following markdown has a set of questions followed by a chunk for you to put in code to answer the question. Fill them all out as indicated.</span>
+<span id="cb61-27"><a href="#cb61-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-28"><a href="#cb61-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numeric Data</span></span>
 <span id="cb61-29"><a href="#cb61-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-30"><a href="#cb61-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Numeric Data</span></span>
+<span id="cb61-30"><a href="#cb61-30" aria-hidden="true" tabindex="-1"></a>What is your favorite number</span>
 <span id="cb61-31"><a href="#cb61-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-32"><a href="#cb61-32" aria-hidden="true" tabindex="-1"></a>What is your favorite number</span>
-<span id="cb61-33"><a href="#cb61-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-36"><a href="#cb61-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-37"><a href="#cb61-37" aria-hidden="true" tabindex="-1"></a>FavoriteNum <span class="ot">&lt;-</span> <span class="dv">8022024</span></span>
-<span id="cb61-38"><a href="#cb61-38" aria-hidden="true" tabindex="-1"></a>FavoriteNum</span>
-<span id="cb61-39"><a href="#cb61-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-34"><a href="#cb61-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-35"><a href="#cb61-35" aria-hidden="true" tabindex="-1"></a>FavoriteNum <span class="ot">&lt;-</span> <span class="dv">8022024</span></span>
+<span id="cb61-36"><a href="#cb61-36" aria-hidden="true" tabindex="-1"></a>FavoriteNum</span>
+<span id="cb61-37"><a href="#cb61-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-38"><a href="#cb61-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-39"><a href="#cb61-39" aria-hidden="true" tabindex="-1"></a>The ancient Egyptians were quite cleaver at engineering and building things. The <span class="co">[</span><span class="ot">Rhind Papyrus</span><span class="co">](https://en.wikipedia.org/wiki/Rhind_Mathematical_Papyrus)</span>, which dates to 1650 BCE, indicates that they estimated the ratio between the circumfrence and the diameter of a circle to be 256 divided by 81. Mathematically is this more or less than what we estimate $\pi$ as? What is the magnitude of the difference?</span>
 <span id="cb61-40"><a href="#cb61-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-41"><a href="#cb61-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-42"><a href="#cb61-42" aria-hidden="true" tabindex="-1"></a>The ancient Egyptians were quite cleaver at engineering and building things.  The <span class="co">[</span><span class="ot">Rhind Papyrus</span><span class="co">](https://en.wikipedia.org/wiki/Rhind_Mathematical_Papyrus)</span>, which dates to 1650 BCE, indicates that they estimated the ratio between the circumfrence and the diameter of a circle to be 256 divided by 81.  Mathematically is this more or less than what we estimate $\pi$ as?  What is the magnitude of the difference?</span>
-<span id="cb61-43"><a href="#cb61-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-44"><a href="#cb61-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-47"><a href="#cb61-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-48"><a href="#cb61-48" aria-hidden="true" tabindex="-1"></a>pi</span>
-<span id="cb61-49"><a href="#cb61-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-50"><a href="#cb61-50" aria-hidden="true" tabindex="-1"></a>ePi<span class="ot">&lt;-</span> <span class="dv">256</span><span class="sc">/</span><span class="dv">81</span></span>
-<span id="cb61-51"><a href="#cb61-51" aria-hidden="true" tabindex="-1"></a>ePi</span>
-<span id="cb61-52"><a href="#cb61-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-53"><a href="#cb61-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Slightly more, magnitude = 0.01891</span></span>
-<span id="cb61-54"><a href="#cb61-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-55"><a href="#cb61-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-56"><a href="#cb61-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-57"><a href="#cb61-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-58"><a href="#cb61-58" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`sqrt()`</span> provides you the square root of a number. Assign a variable named <span class="in">`root2`</span> to hold the value of <span class="in">`sqrt(2)`</span>.</span>
-<span id="cb61-59"><a href="#cb61-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-62"><a href="#cb61-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-63"><a href="#cb61-63" aria-hidden="true" tabindex="-1"></a>root2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)</span>
-<span id="cb61-64"><a href="#cb61-64" aria-hidden="true" tabindex="-1"></a>root2</span>
-<span id="cb61-65"><a href="#cb61-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-66"><a href="#cb61-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-67"><a href="#cb61-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-68"><a href="#cb61-68" aria-hidden="true" tabindex="-1"></a>What is the value contained in the variable below named <span class="in">`sqrOfNegative2`</span>?  Explain the result and make any modifications necessary to be more explicit.</span>
-<span id="cb61-69"><a href="#cb61-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-72"><a href="#cb61-72" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-73"><a href="#cb61-73" aria-hidden="true" tabindex="-1"></a>sqrOfNegative2 <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> </span>
-<span id="cb61-74"><a href="#cb61-74" aria-hidden="true" tabindex="-1"></a>sqrOfNegative2</span>
+<span id="cb61-43"><a href="#cb61-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-44"><a href="#cb61-44" aria-hidden="true" tabindex="-1"></a>pi</span>
+<span id="cb61-45"><a href="#cb61-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-46"><a href="#cb61-46" aria-hidden="true" tabindex="-1"></a>ePi<span class="ot">&lt;-</span> <span class="dv">256</span><span class="sc">/</span><span class="dv">81</span></span>
+<span id="cb61-47"><a href="#cb61-47" aria-hidden="true" tabindex="-1"></a>ePi</span>
+<span id="cb61-48"><a href="#cb61-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-49"><a href="#cb61-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Slightly more, magnitude = 0.01891</span></span>
+<span id="cb61-50"><a href="#cb61-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-51"><a href="#cb61-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-52"><a href="#cb61-52" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`sqrt()`</span> provides you the square root of a number. Assign a variable named <span class="in">`root2`</span> to hold the value of <span class="in">`sqrt(2)`</span>.</span>
+<span id="cb61-53"><a href="#cb61-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-56"><a href="#cb61-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-57"><a href="#cb61-57" aria-hidden="true" tabindex="-1"></a>root2 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="dv">2</span>)</span>
+<span id="cb61-58"><a href="#cb61-58" aria-hidden="true" tabindex="-1"></a>root2</span>
+<span id="cb61-59"><a href="#cb61-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-60"><a href="#cb61-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-61"><a href="#cb61-61" aria-hidden="true" tabindex="-1"></a>What is the value contained in the variable below named <span class="in">`sqrOfNegative2`</span>? Explain the result and make any modifications necessary to be more explicit.</span>
+<span id="cb61-62"><a href="#cb61-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-65"><a href="#cb61-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-66"><a href="#cb61-66" aria-hidden="true" tabindex="-1"></a>sqrOfNegative2 <span class="ot">&lt;-</span> (<span class="sc">-</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> </span>
+<span id="cb61-67"><a href="#cb61-67" aria-hidden="true" tabindex="-1"></a>sqrOfNegative2</span>
+<span id="cb61-68"><a href="#cb61-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-69"><a href="#cb61-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Must use parenthesis</span></span>
+<span id="cb61-70"><a href="#cb61-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-71"><a href="#cb61-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-72"><a href="#cb61-72" aria-hidden="true" tabindex="-1"></a><span class="fu">### Character Data</span></span>
+<span id="cb61-73"><a href="#cb61-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-74"><a href="#cb61-74" aria-hidden="true" tabindex="-1"></a>Create variables for your first and last names (and give them proper variable names).</span>
 <span id="cb61-75"><a href="#cb61-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-76"><a href="#cb61-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Must use parenthesis</span></span>
-<span id="cb61-77"><a href="#cb61-77" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-78"><a href="#cb61-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-79"><a href="#cb61-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-80"><a href="#cb61-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-81"><a href="#cb61-81" aria-hidden="true" tabindex="-1"></a><span class="fu">### Character Data</span></span>
-<span id="cb61-82"><a href="#cb61-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-83"><a href="#cb61-83" aria-hidden="true" tabindex="-1"></a>Create variables for your first and last names (and give them proper variable names).</span>
-<span id="cb61-84"><a href="#cb61-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-87"><a href="#cb61-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-88"><a href="#cb61-88" aria-hidden="true" tabindex="-1"></a>cool <span class="ot">&lt;-</span> <span class="st">"Briana"</span></span>
-<span id="cb61-89"><a href="#cb61-89" aria-hidden="true" tabindex="-1"></a>person <span class="ot">&lt;-</span> <span class="st">"Allman"</span></span>
-<span id="cb61-90"><a href="#cb61-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-91"><a href="#cb61-91" aria-hidden="true" tabindex="-1"></a>cool</span>
-<span id="cb61-92"><a href="#cb61-92" aria-hidden="true" tabindex="-1"></a>person</span>
-<span id="cb61-93"><a href="#cb61-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-94"><a href="#cb61-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-95"><a href="#cb61-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-96"><a href="#cb61-96" aria-hidden="true" tabindex="-1"></a>Use the functions <span class="in">`print()`</span> and <span class="in">`cat()`</span> to display these values.  Are these two functions identical?</span>
+<span id="cb61-78"><a href="#cb61-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-79"><a href="#cb61-79" aria-hidden="true" tabindex="-1"></a>cool <span class="ot">&lt;-</span> <span class="st">"Briana"</span></span>
+<span id="cb61-80"><a href="#cb61-80" aria-hidden="true" tabindex="-1"></a>person <span class="ot">&lt;-</span> <span class="st">"Allman"</span></span>
+<span id="cb61-81"><a href="#cb61-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-82"><a href="#cb61-82" aria-hidden="true" tabindex="-1"></a>cool</span>
+<span id="cb61-83"><a href="#cb61-83" aria-hidden="true" tabindex="-1"></a>person</span>
+<span id="cb61-84"><a href="#cb61-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-85"><a href="#cb61-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-86"><a href="#cb61-86" aria-hidden="true" tabindex="-1"></a>Use the functions <span class="in">`print()`</span> and <span class="in">`cat()`</span> to display these values. Are these two functions identical?</span>
+<span id="cb61-87"><a href="#cb61-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-90"><a href="#cb61-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-91"><a href="#cb61-91" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cool)</span>
+<span id="cb61-92"><a href="#cb61-92" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(person)</span>
+<span id="cb61-93"><a href="#cb61-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-94"><a href="#cb61-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Not Quite...Print: Debugging, inspecting object contents, and general output.</span></span>
+<span id="cb61-95"><a href="#cb61-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Cat: Concatenating strings, creating custom messages, and generating formatted output.</span></span>
+<span id="cb61-96"><a href="#cb61-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb61-97"><a href="#cb61-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-100"><a href="#cb61-100" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-101"><a href="#cb61-101" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cool)</span>
-<span id="cb61-102"><a href="#cb61-102" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(person)</span>
-<span id="cb61-103"><a href="#cb61-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-104"><a href="#cb61-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Not Quite...Print: Debugging, inspecting object contents, and general output.</span></span>
-<span id="cb61-105"><a href="#cb61-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Cat: Concatenating strings, creating custom messages, and generating formatted output.</span></span>
-<span id="cb61-106"><a href="#cb61-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-107"><a href="#cb61-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-98"><a href="#cb61-98" aria-hidden="true" tabindex="-1"></a>Create a new variable, <span class="in">`properName`</span>, which is your last name, a commma and space, followed by your first name. Use the variables above instead of writing out the letters for your names.</span>
+<span id="cb61-99"><a href="#cb61-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-102"><a href="#cb61-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-103"><a href="#cb61-103" aria-hidden="true" tabindex="-1"></a>properName <span class="ot">&lt;-</span> <span class="fu">paste</span>(person, cool, <span class="at">sep =</span> <span class="st">", "</span>)</span>
+<span id="cb61-104"><a href="#cb61-104" aria-hidden="true" tabindex="-1"></a>properName</span>
+<span id="cb61-105"><a href="#cb61-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-106"><a href="#cb61-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-107"><a href="#cb61-107" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`nchar()`</span> returns the number of characters in a character variable. Use it on your <span class="in">`properName`</span>.</span>
 <span id="cb61-108"><a href="#cb61-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-109"><a href="#cb61-109" aria-hidden="true" tabindex="-1"></a>Create a new variable, <span class="in">`properName`</span>, which is your last name, a commma and space, followed by your first name.  Use the variables above instead of writing out the letters for your names.</span>
-<span id="cb61-110"><a href="#cb61-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-113"><a href="#cb61-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-114"><a href="#cb61-114" aria-hidden="true" tabindex="-1"></a>properName <span class="ot">&lt;-</span> <span class="fu">paste</span>(person, cool, <span class="at">sep =</span> <span class="st">", "</span>)</span>
-<span id="cb61-115"><a href="#cb61-115" aria-hidden="true" tabindex="-1"></a>properName</span>
-<span id="cb61-116"><a href="#cb61-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-111"><a href="#cb61-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-112"><a href="#cb61-112" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Briana"</span>, <span class="st">"Allman"</span>)</span>
+<span id="cb61-113"><a href="#cb61-113" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(name)</span>
+<span id="cb61-114"><a href="#cb61-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-115"><a href="#cb61-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-116"><a href="#cb61-116" aria-hidden="true" tabindex="-1"></a><span class="fu">### Logical Data</span></span>
 <span id="cb61-117"><a href="#cb61-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-118"><a href="#cb61-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-119"><a href="#cb61-119" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`nchar()`</span> returns the number of characters in a character variable.  Use it on your <span class="in">`properName`</span>.</span>
-<span id="cb61-120"><a href="#cb61-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-123"><a href="#cb61-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-124"><a href="#cb61-124" aria-hidden="true" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Briana"</span>, <span class="st">"Allman"</span>)</span>
-<span id="cb61-125"><a href="#cb61-125" aria-hidden="true" tabindex="-1"></a><span class="fu">nchar</span>(name)</span>
-<span id="cb61-126"><a href="#cb61-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-127"><a href="#cb61-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-118"><a href="#cb61-118" aria-hidden="true" tabindex="-1"></a>Create the variables <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span> and assign them the proper logical values for R.</span>
+<span id="cb61-119"><a href="#cb61-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-122"><a href="#cb61-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-123"><a href="#cb61-123" aria-hidden="true" tabindex="-1"></a>trueResult <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb61-124"><a href="#cb61-124" aria-hidden="true" tabindex="-1"></a>falseResult <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb61-125"><a href="#cb61-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-126"><a href="#cb61-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-127"><a href="#cb61-127" aria-hidden="true" tabindex="-1"></a>Using the variables <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span> demonstrate logical operators for equality, inequality, and negation.</span>
 <span id="cb61-128"><a href="#cb61-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-129"><a href="#cb61-129" aria-hidden="true" tabindex="-1"></a><span class="fu">### Logical Data </span></span>
-<span id="cb61-130"><a href="#cb61-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-131"><a href="#cb61-131" aria-hidden="true" tabindex="-1"></a>Create the variables <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span> and assign them the proper logical values for R.</span>
-<span id="cb61-132"><a href="#cb61-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-135"><a href="#cb61-135" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-136"><a href="#cb61-136" aria-hidden="true" tabindex="-1"></a>trueResult <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb61-137"><a href="#cb61-137" aria-hidden="true" tabindex="-1"></a>falseResult <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb61-138"><a href="#cb61-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-131"><a href="#cb61-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-132"><a href="#cb61-132" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">==</span> falseResult</span>
+<span id="cb61-133"><a href="#cb61-133" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">!=</span> falseResult</span>
+<span id="cb61-134"><a href="#cb61-134" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>trueResult</span>
+<span id="cb61-135"><a href="#cb61-135" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>falseResult</span>
+<span id="cb61-136"><a href="#cb61-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-137"><a href="#cb61-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-138"><a href="#cb61-138" aria-hidden="true" tabindex="-1"></a>Using the variables <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span> demonstrate AND operator in R for all pairwise combinations (e.g, for the and operator, show how to evaluate <span class="in">`trueResult`</span> and <span class="in">`trueResult`</span>, <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span>, <span class="in">`falseResult`</span> and <span class="in">`trueResult`</span>, and <span class="in">`falseResult`</span> and <span class="in">`falseResult`</span>)</span>
 <span id="cb61-139"><a href="#cb61-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-140"><a href="#cb61-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-141"><a href="#cb61-141" aria-hidden="true" tabindex="-1"></a>Using the variables <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span> demonstrate logical operators for equality, inequality, and negation.</span>
-<span id="cb61-142"><a href="#cb61-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-145"><a href="#cb61-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-146"><a href="#cb61-146" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">==</span> falseResult</span>
-<span id="cb61-147"><a href="#cb61-147" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">!=</span> falseResult</span>
-<span id="cb61-148"><a href="#cb61-148" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>trueResult</span>
-<span id="cb61-149"><a href="#cb61-149" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span>falseResult</span>
-<span id="cb61-150"><a href="#cb61-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-151"><a href="#cb61-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-152"><a href="#cb61-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-153"><a href="#cb61-153" aria-hidden="true" tabindex="-1"></a>Using the variables <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span> demonstrate AND operator in R for all pairwise combinations (e.g, for the and operator, show how to evaluate <span class="in">`trueResult`</span> and <span class="in">`trueResult`</span>, <span class="in">`trueResult`</span> and <span class="in">`falseResult`</span>, <span class="in">`falseResult`</span> and <span class="in">`trueResult`</span>, and <span class="in">`falseResult`</span> and <span class="in">`falseResult`</span>)</span>
-<span id="cb61-154"><a href="#cb61-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-157"><a href="#cb61-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-158"><a href="#cb61-158" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">&amp;</span> trueResult</span>
-<span id="cb61-159"><a href="#cb61-159" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">&amp;</span> falseResult</span>
-<span id="cb61-160"><a href="#cb61-160" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">&amp;</span> trueResult</span>
-<span id="cb61-161"><a href="#cb61-161" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">&amp;</span> falseResult</span>
-<span id="cb61-162"><a href="#cb61-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-163"><a href="#cb61-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-164"><a href="#cb61-164" aria-hidden="true" tabindex="-1"></a>Do the same as the previous question for the approriate OR operator.</span>
-<span id="cb61-165"><a href="#cb61-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-168"><a href="#cb61-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-169"><a href="#cb61-169" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">|</span> trueResult</span>
-<span id="cb61-170"><a href="#cb61-170" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">|</span> falseResult</span>
-<span id="cb61-171"><a href="#cb61-171" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">|</span> trueResult</span>
-<span id="cb61-172"><a href="#cb61-172" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">|</span> falseResult</span>
-<span id="cb61-173"><a href="#cb61-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-174"><a href="#cb61-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-175"><a href="#cb61-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-176"><a href="#cb61-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-177"><a href="#cb61-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-178"><a href="#cb61-178" aria-hidden="true" tabindex="-1"></a>In the example above for the square root, the variable <span class="in">`root2`</span> has the square root of the number $2$.  Test the equality (e.g., use the <span class="in">`==`</span> operator) of this varible times itself to the value $2$. Discuss this with your neighbor.  Does this make sense?</span>
+<span id="cb61-142"><a href="#cb61-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-143"><a href="#cb61-143" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">&amp;</span> trueResult</span>
+<span id="cb61-144"><a href="#cb61-144" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">&amp;</span> falseResult</span>
+<span id="cb61-145"><a href="#cb61-145" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">&amp;</span> trueResult</span>
+<span id="cb61-146"><a href="#cb61-146" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">&amp;</span> falseResult</span>
+<span id="cb61-147"><a href="#cb61-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-148"><a href="#cb61-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-149"><a href="#cb61-149" aria-hidden="true" tabindex="-1"></a>Do the same as the previous question for the approriate OR operator.</span>
+<span id="cb61-150"><a href="#cb61-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-153"><a href="#cb61-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-154"><a href="#cb61-154" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">|</span> trueResult</span>
+<span id="cb61-155"><a href="#cb61-155" aria-hidden="true" tabindex="-1"></a>trueResult <span class="sc">|</span> falseResult</span>
+<span id="cb61-156"><a href="#cb61-156" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">|</span> trueResult</span>
+<span id="cb61-157"><a href="#cb61-157" aria-hidden="true" tabindex="-1"></a>falseResult <span class="sc">|</span> falseResult</span>
+<span id="cb61-158"><a href="#cb61-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-159"><a href="#cb61-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-160"><a href="#cb61-160" aria-hidden="true" tabindex="-1"></a>In the example above for the square root, the variable <span class="in">`root2`</span> has the square root of the number $2$. Test the equality (e.g., use the <span class="in">`==`</span> operator) of this varible times itself to the value $2$. Discuss this with your neighbor. Does this make sense?</span>
+<span id="cb61-161"><a href="#cb61-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-164"><a href="#cb61-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-165"><a href="#cb61-165" aria-hidden="true" tabindex="-1"></a>root2</span>
+<span id="cb61-166"><a href="#cb61-166" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb61-167"><a href="#cb61-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb61-168"><a href="#cb61-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-169"><a href="#cb61-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dates</span></span>
+<span id="cb61-170"><a href="#cb61-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-171"><a href="#cb61-171" aria-hidden="true" tabindex="-1"></a>When did you first become a college student? Create a variable representing this date.</span>
+<span id="cb61-172"><a href="#cb61-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-175"><a href="#cb61-175" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-176"><a href="#cb61-176" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb61-177"><a href="#cb61-177" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span> (<span class="st">"08-17-2020"</span>) <span class="ot">-&gt;</span> started</span>
+<span id="cb61-178"><a href="#cb61-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb61-179"><a href="#cb61-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-182"><a href="#cb61-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-183"><a href="#cb61-183" aria-hidden="true" tabindex="-1"></a>root2</span>
-<span id="cb61-184"><a href="#cb61-184" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb61-185"><a href="#cb61-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-186"><a href="#cb61-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-187"><a href="#cb61-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-188"><a href="#cb61-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-189"><a href="#cb61-189" aria-hidden="true" tabindex="-1"></a><span class="fu">### Dates</span></span>
-<span id="cb61-190"><a href="#cb61-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-191"><a href="#cb61-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-192"><a href="#cb61-192" aria-hidden="true" tabindex="-1"></a>When did you first become a college student?  Create a variable representing this date.</span>
-<span id="cb61-193"><a href="#cb61-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-196"><a href="#cb61-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-197"><a href="#cb61-197" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb61-198"><a href="#cb61-198" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span> (<span class="st">"08-17-2020"</span>) <span class="ot">-&gt;</span> started</span>
-<span id="cb61-199"><a href="#cb61-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-200"><a href="#cb61-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-201"><a href="#cb61-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-202"><a href="#cb61-202" aria-hidden="true" tabindex="-1"></a>How many days was it between then and now?</span>
-<span id="cb61-203"><a href="#cb61-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-206"><a href="#cb61-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb61-207"><a href="#cb61-207" aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>() <span class="sc">-</span> started</span>
-<span id="cb61-208"><a href="#cb61-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb61-209"><a href="#cb61-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-180"><a href="#cb61-180" aria-hidden="true" tabindex="-1"></a>How many days was it between then and now?</span>
+<span id="cb61-181"><a href="#cb61-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-184"><a href="#cb61-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb61-185"><a href="#cb61-185" aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>() <span class="sc">-</span> started</span>
+<span id="cb61-186"><a href="#cb61-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
