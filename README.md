@@ -7,4 +7,4 @@ My Class Repository: Data Literacy (ENVS 543)
 
 - [Resume](https://briallman.github.io/ENVS543-Data-Literacy/ResumeLoftus.html)
 
-- [Presentation on Interests](https://briallman.github.io/ENVS543-Data-Literacy/Presentation_Loftus.html#/interest-4-being-outside)
+- [Presentation on Interests](https://briallman.github.io/ENVS543-Data-Literacy/Presentation_Loftus.html)
