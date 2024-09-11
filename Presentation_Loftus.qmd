@@ -5,18 +5,32 @@ format: revealjs
 editor: visual
 ---
 
-## Title:
-
-Text Here
-
 ## Interest 1: Data Visualization
 
-Text Here
+My biggest passion and career goal lies in bridging the gap between scientific research and public understanding, fostering informed engagement with critical issues through interactive maps, infographics, and data visualization.
+
+I have done this in a few pretty cool ways...
+
+## ArcGIS Pro & ArcGIS Online
+
+Recently, I was able to make a Data Hub and StoryMap for USFWS and The Golden Winged Working Group!
+
+Click [here](https://experience.arcgis.com/experience/7d999be86ad4414996151904511460f0) to check it out!
+
+Also to check out more projects I have been involved in check out my [LinkedIn!](https://www.linkedin.com/in/briana-loftus-953550271/)
 
 ## Interest 2: Habitat Restoration
 
-Text Here
+Some other interests I have in Environmental Studies is Habitat Restoration, specifically through invasive species removal. Yes, Dr. Crawford's class did spark this passion. While most of the volunteering I have done with JRPS has involved manual removal, it was worth well worth the hard labor!
+
+![Garlic Mustard Removal](images/1680794182266.jpeg){fig-align="left"}
 
 ## Interest 3: Continuous Monitoring
 
-Text Here
+Another passion is continuous monitoring. At the VaDEQ I do continuous monitoring for a temperature TMDL study. I can't post any pictures of my maps as they are still in the works/not publicly available yet (and this repository is public)...but I really do enjoy going out into the field and then learning how to work with the data in the off-season!
+
+## Interest 4: Being Outside!!!
+
+Why would I be an environmental studies major if I didn't truly love the environment and being immersed in it. Kayaking, fishing, hiking, biking, and sightseeing are some of the things that bring me the most joy in life!!!
+
+![Belle Isle](images/Hike.jpg){fig-align="left"}
