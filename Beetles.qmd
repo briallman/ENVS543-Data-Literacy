@@ -27,4 +27,56 @@ beetles %>%
   leaflet::addProviderTiles(provider = leaflet::providers$Esri.WorldTopo) %>%
   leaflet::addMarkers( ~Longitude, ~Latitude,popup = ~Stratum )
 ```
+Vectors:
+```{r}
+data <- c(23, 42, 545, 12, 43, 46, 213)
+data
+sum(data)
+sqrt(data)
+
+other <- 7:1
+other
+
+data - other
+
+data -32 * 5/9 -> data
+
+data
+```
+
+Lists:
+```{r}
+summary(iris)
+class(iris)
+
+iris
+
+fit <- cor.test( iris$Petal.Length, iris$Petal.Width)
+fit
+
+names(fit)
+
+
+```
+We found a significant correlation between the variables (P = `r fit$p.value`)
+
+
+Data Frame: 
+```{r}
+library(tidyverse)
+
+beetles <- read_csv ( url )
+
+summary(beetles)
+
+sites <- beetles$Stratum
+summary(sites)
+sites
+```
+```{r}
+library (leaflet)
+
+
+```
+
 
