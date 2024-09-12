@@ -1,0 +1,30 @@
+---
+title: "Beetles"
+author: "Briana Allman"
+format: html
+editor: visual
+---
+
+```{r}
+library (tidyverse)
+
+url <- "https://raw.githubusercontent.com/DyerlabTeaching/Data-Containers/main/data/arapat.csv"
+beetles <- read_csv( url )
+
+```
+
+```{r}
+dim(beetles) 
+```
+
+```{r}
+head(beetles)
+```
+
+```{r}
+beetles %>%
+  leaflet::leaflet() %>%
+  leaflet::addProviderTiles(provider = leaflet::providers$Esri.WorldTopo) %>%
+  leaflet::addMarkers( ~Longitude, ~Latitude,popup = ~Stratum )
+```
+
