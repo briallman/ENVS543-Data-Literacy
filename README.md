@@ -8,3 +8,5 @@ My Class Repository: Data Literacy (ENVS 543)
 - [Resume](https://briallman.github.io/ENVS543-Data-Literacy/ResumeLoftus.html)
 
 - [Presentation on Interests](https://briallman.github.io/ENVS543-Data-Literacy/Presentation_Loftus.html)
+
+- [In Class Activity (Data Types)](https://briallman.github.io/ENVS543-Data-Literacy/in-class_data_types.html)
