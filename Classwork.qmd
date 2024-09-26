@@ -1,0 +1,78 @@
+---
+title: "Function_InClass"
+format: html
+author: Briana Allman
+editor: visual
+---
+
+Function
+```{r}
+
+getRiceData <- function(){
+  
+}
+```
+
+Packages
+```{r}
+
+library(tidyverse)
+
+```
+
+Reading in Packages
+```{r}
+
+url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+
+read_csv(url) -> rice
+
+```
+
+All the data is represented in common units (Imperial or Standard).
+```{r}
+rice %>% 
+  mutate(H2O_Temp = 1.8 * H2O_TempC + 32)
+```
+
+An actual date object represents the date and time information.
+```{r}
+
+```
+
+Additional columns for Month, Day, and Weekday as properly ordered variables. 
+```{r}
+
+```
+
+No extraneous columns of data.
+```{r}
+
+```
+
+The file should be documented with comments.
+```{r}
+
+```
+
+Make date object
+```{r}
+
+
+
+```
+Make month and weekday object
+```{r}
+
+
+
+```
+Convert F -> C
+```{r}
+
+
+
+```
+Get rid of extra data
+```{r}
+```

@@ -4,10 +4,11 @@ author: Briana Allman
 format: html
 editor: visual
 ---
+
 This document is what we did in class on 9/192024.
 
-
 Reading in Packages.
+
 ```{r}
 library(tidyverse)
 library(lubridate)
@@ -15,8 +16,8 @@ library(knitr)
 library(kableExtra)
 ```
 
-
 Reading in .csv file and assigning it to the variable "rice".
+
 ```{r}
 
 url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
@@ -26,8 +27,8 @@ rice <- read_csv(url)
 names(rice)
 ```
 
-
 Standardizing Temperature
+
 ```{r}
 rice %>% 
   mutate(H2O_Temp = 1.8 * H2O_TempC + 32) %>%
@@ -45,4 +46,3 @@ rice %>%
   kable_paper()
 
 ```
-
