@@ -3,7 +3,6 @@
 My Class Repository: Data Literacy (ENVS 543)
 
 
-- [My First Markdown](https://briallman.github.io/ENVS543-Data-Literacy/FirstMarkdown543.html)
 
 - [Resume](https://briallman.github.io/ENVS543-Data-Literacy/ResumeLoftus.html)
 
