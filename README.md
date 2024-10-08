@@ -13,3 +13,5 @@ My Class Repository: Data Literacy (ENVS 543)
 - [Summary Tabular Data Homework](https://briallman.github.io/ENVS543-Data-Literacy/ExternalData.html)
 
 - [Function In Class Activity](https://briallman.github.io/ENVS543-Data-Literacy/
+
+- [Graphics Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Graphics.html)
