@@ -1,0 +1,83 @@
+# Briana Allman Rice Data Function Assignment
+
+# A function to get data from the example Rice Rivers Center used in class
+
+# This data is in the imperial system, has "DateTime" a time object, has new columns for month/day/weekday,
+# has only necessary data (more may be removed if determined unnecessary), and has been annotated to follow the steps I took. 
+
+get_rice_data <- function() { 
+  
+# Calling in Packages
+library (tidyverse)
+library(lubridate)
+
+
+# Reading in Files
+url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+rice <- read_csv( url )
+
+# Convert to character
+rice$DateTime <- as.character(rice$DateTime)
+
+# Trim white space
+rice$DateTime <- trimws(rice$DateTime)
+
+# Convert using as.POSIXct with the appropriate format
+rice <- rice %>%
+  mutate(
+    DateTime = as.POSIXct(DateTime, format = "%m/%d/%Y %I:%M:%S %p"),  # Specify the format
+    Month = factor(month(DateTime, label = TRUE, abbr = TRUE), levels = month.abb),
+    Day = day(DateTime),
+    Weekday = factor(wday(DateTime, label = TRUE, abbr = TRUE), levels = wday(1:7, label = TRUE, abbr = TRUE))
+  )
+
+#Finding NA Values
+sum(is.na(rice$DateTime))
+
+#Looking at them
+na_entries <- rice %>%
+  filter(is.na(DateTime))
+
+print(na_entries)
+
+#Filtering them out 
+rice <- rice %>%
+  filter(!is.na(DateTime))
+
+# Convert H2O_TempC to Fahrenheit and rename, convert Depth_m and SurfaceWaterElev_m_levelNad83 to feet, and rename columns
+rice <- rice %>%
+  mutate(
+    H2O_TempF = (H2O_TempC * 9/5) + 32, 
+    SurfaceWaterElev_ft = SurfaceWaterElev_m_levelNad83m * 3.28084  # Convert to feet
+  )
+ 
+#Making new dataset without unnecessary columns
+rice_cleaned <- rice %>% 
+  select(
+    DateTime,
+    Month,
+    Day, 
+    Weekday,
+    RecordID,
+    PAR,
+    WindSpeed_mph,
+    WindDir,
+    AirTempF,
+    RelHumidity,
+    BP_HG,
+    Rain_in,
+    H2O_TempF,
+    SpCond_mScm,
+    Salinity_ppt,
+    PH,
+    Turbidity_ntu,
+    Chla_ugl,
+    BGAPC_CML,
+    BGAPC_rfu,
+    ODO_sat,
+    ODO_mgl,
+    Depth_ft,
+    SurfaceWaterElev_ft
+  )
+
+}
