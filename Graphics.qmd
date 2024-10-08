@@ -1,0 +1,221 @@
+---
+title: "Graphics"
+author: Briana Allman
+format: html
+editor: visual
+---
+
+## Graphics Assignment
+
+Calling in Packages and Rice Function.
+
+```{r setup, include=FALSE}
+library (tidyverse)
+library(lubridate)
+library(dplyr)
+library(circular)
+library(ggplot2)
+library(ggpolar)
+
+
+url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+rice <- read_csv( url )
+
+
+rice$DateTime <- as.character(rice$DateTime)
+
+
+rice$DateTime <- trimws(rice$DateTime)
+
+
+rice <- rice %>%
+  mutate(
+    DateTime = as.POSIXct(DateTime, format = "%m/%d/%Y %I:%M:%S %p"),
+    Month = factor(month(DateTime, label = TRUE, abbr = TRUE), levels = month.abb),
+    Day = day(DateTime),
+    Weekday = factor(wday(DateTime, label = TRUE, abbr = TRUE), levels = wday(1:7, label = TRUE, abbr = TRUE))
+  )
+
+
+sum(is.na(rice$DateTime))
+
+
+na_entries <- rice %>%
+  filter(is.na(DateTime))
+
+print(na_entries)
+
+
+rice <- rice %>%
+  filter(!is.na(DateTime))
+
+
+rice <- rice %>%
+  mutate(
+    H2O_TempF = (H2O_TempC * 9/5) + 32, 
+    SurfaceWaterElev_ft = SurfaceWaterElev_m_levelNad83m * 3.28084
+  )
+ 
+
+rice_cleaned <- rice %>% 
+  select(
+    DateTime,
+    Month,
+    Day, 
+    Weekday,
+    RecordID,
+    PAR,
+    WindSpeed_mph,
+    WindDir,
+    AirTempF,
+    RelHumidity,
+    BP_HG,
+    Rain_in,
+    H2O_TempF,
+    SpCond_mScm,
+    Salinity_ppt,
+    PH,
+    Turbidity_ntu,
+    Chla_ugl,
+    BGAPC_CML,
+    BGAPC_rfu,
+    ODO_sat,
+    ODO_mgl,
+    Depth_ft,
+    SurfaceWaterElev_ft
+  )
+
+```
+
+Total Rain for Each Weekday in January. (Base R)
+
+```{r}
+# Filter for January data and calculate total rainfall per weekday
+jan_data <- rice_cleaned %>%
+  filter(Month == "Jan") %>%
+  group_by(Weekday) %>%
+  summarize(Total_Rain = sum(Rain_in))
+
+# Create a bar plot
+barplot(jan_data$Total_Rain, names.arg = jan_data$Weekday,
+        main = "Total Rainfall in January by Weekday",
+        xlab = "Weekday", ylab = "Total Rainfall (in)")
+```
+
+Total Rain for Each Weekday in January. (ggplot)
+
+```{r}
+ggplot(jan_data, aes(x = Weekday, y = Total_Rain)) +
+  geom_bar(stat = "identity", fill = "skyblue", alpha = 0.8) +
+  geom_text(aes(label = Total_Rain), vjust = -0.3, size = 3) +
+  labs(title = "Total Rainfall in January by Weekday",
+       x = "Weekday", y = "Total Rainfall (in)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        panel.grid.major.x = element_blank())
+```
+
+Average daily temperature for weekdays in February. (Base R)
+
+```{r}
+# Filter for February data and calculate average temperature per weekday
+feb_data <- rice_cleaned %>%
+  filter(Month == "Feb") %>%
+  group_by(Weekday) %>%
+  summarize(Avg_Temp = mean(AirTempF))
+
+# Create a bar plot
+barplot(feb_data$Avg_Temp, names.arg = feb_data$Weekday,
+        main = "Average Daily Temperature in February by Weekday",
+        xlab = "Weekday", ylab = "Average Temperature (°F)")
+```
+
+Average daily temperature for weekdays in February. (ggplot)
+
+```{r}
+ggplot(feb_data, aes(x = Weekday, y = Avg_Temp)) +
+  geom_bar(stat = "identity", fill = "blue", alpha = 0.8) +
+  geom_text(aes(label = round(Avg_Temp, 1)), vjust = -0.3, size = 3) +
+  labs(title = "Average Daily Temperature in February by Weekday",
+       x = "Weekday", y = "Average Temperature (°F)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        panel.grid.major.x = element_blank())
+```
+
+Water depth on Valentine's Day. (Base R)
+
+```{r}
+# Filter for Valentine's Day data and convert "DateTime" to a time object
+valentines_data <- rice_cleaned %>%
+  filter(Month == "Feb" & Day == 14) %>%
+  mutate(Time = format(DateTime, "%H:%M"))
+
+# Create a dot plot
+plot(valentines_data$DateTime, valentines_data$Depth_ft, type = "l",
+     main = "Water Depth on Valentine's Day by Time",
+     xlab = "Time", ylab = "Water Depth (ft)")
+```
+
+Water depth on Valentine's Day. (ggplot)
+
+```{r}
+# Create a dot plot using ggplot
+ggplot(valentines_data, aes(x = Time, y = Depth_ft)) +
+  geom_line(color = "blue") +
+  geom_point(size = 3, color = "blue") +
+  labs(title = "Water Depth on Valentine's Day by Time",
+       x = "Time", y = "Water Depth (ft)") +
+  theme_minimal() +
+   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 4))
+```
+
+Scatter plot of Daily Total Rain and Daily Median Temperature grouped by month (label the centroid of months). (Base R)
+
+```{r}
+# Calculate daily total rain and median temperature by month
+monthly_data <- rice_cleaned %>%
+  group_by(Month) %>%
+  summarize(Total_Rain = sum(Rain_in),
+            Median_Temp = median(AirTempF))
+
+# Create a scatter plot
+plot(monthly_data$Median_Temp, monthly_data$Total_Rain,
+     main = "Daily Total Rain vs. Daily Median Temperature by Month",
+     xlab = "Daily Median Temperature (°F)", ylab = "Daily Total Rain (in)") +
+  text(monthly_data$Median_Temp, monthly_data$Total_Rain,
+     labels = month.abb[monthly_data$Month], pos = 4)
+
+
+```
+
+Scatter plot of Daily Total Rain and Daily Median Temperature grouped by month (label the centroid of months). (ggplot)
+
+```{r}
+ggplot(monthly_data, aes(x = Median_Temp, y = Total_Rain)) +
+  geom_point(size = 3) +
+  geom_text(aes(label = month.abb[Month]), vjust = -0.3) +
+  labs(title = "Daily Total Rain vs. Daily Median Temperature by Month",
+       x = "Daily Median Temperature (°F)", y = "Daily Total Rain (in)") +
+  theme_minimal()
+```
+
+Wind Direction during the week containing the 8th of January -\> January 5th to the 11th. (Base R)
+
+```{r}
+# Filter for the specific time period from January 5th to 11th
+week_data <- rice_cleaned %>%
+  filter(DateTime >= ymd_hms("2014-01-05 00:00:00") &
+         DateTime <= ymd_hms("2014-01-11 23:59:59")) %>%
+  mutate(Time = format(DateTime, "%H:%M"))
+
+plot(week_data$DateTime, week_data$WindDir,
+     type = "l", xlab = "Date and Time", ylab = "Wind Direction (degrees)")
+
+```
+
+Wind Direction during the week containing the 8th of January. (ggplot)
+
+```{r}
+
+```
