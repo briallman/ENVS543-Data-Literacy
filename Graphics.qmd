@@ -7,7 +7,7 @@ editor: visual
 
 ## Graphics Assignment
 
-Calling in Packages and Rice Function.
+Calling in Packages and Rice Function. (Hidden)
 
 ```{r setup, include=FALSE}
 library (tidyverse)
@@ -205,8 +205,8 @@ Wind Direction during the week containing the 8th of January -\> January 5th to 
 ```{r}
 # Filter for the specific time period from January 5th to 11th
 week_data <- rice_cleaned %>%
-  filter(DateTime >= ymd_hms("2014-01-05 00:00:00") &
-         DateTime <= ymd_hms("2014-01-11 23:59:59")) %>%
+  filter(DateTime >= ymd_hms("2014-01-05 05:00:00") &
+         DateTime <= ymd_hms("2014-01-12 05:00:00")) %>%
   mutate(Time = format(DateTime, "%H:%M"))
 
 plot(week_data$DateTime, week_data$WindDir,
@@ -217,5 +217,12 @@ plot(week_data$DateTime, week_data$WindDir,
 Wind Direction during the week containing the 8th of January. (ggplot)
 
 ```{r}
-
+ggplot(week_data, aes(x = factor(WindDir))) +
+  geom_bar(width = 0.8, fill = "darkgreen") +
+  coord_polar(start = 0, direction = 1) +
+  theme_classic() +
+  labs(title = "Wind Direction Distribution",
+       x = "Wind Direction (Degrees)",
+       y = "Frequency") +
+  annotate(geom = "text", x = 1, y = 0, label = "N", size = 4, angle = -45)
 ```
