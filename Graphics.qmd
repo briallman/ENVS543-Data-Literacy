@@ -217,10 +217,24 @@ plot(week_data$DateTime, week_data$WindDir,
 Wind Direction during the week containing the 8th of January. (ggplot)
 
 ```{r}
+ggplot(week_data, aes(x = DateTime, y = WindDir)) +
+  geom_line() +
+  labs(x = "Date & Time", y = "Wind Direction (degrees)") +
+  theme_minimal() +
+  scale_x_datetime(date_breaks = "1 day", date_labels = "%d %b")
+```
+
+Wind Direction during the week containing the 8th of January. (ggplot - wind rose)
+
+I couldn't figure out how to make the dates look better and keep it as one graph. I thought this was useful to understand the different directions throughout the time period; however, it is not the best at showing time and direction at the same time since there are so many data points.
+
+```{r}
 ggplot(week_data, aes(x = factor(WindDir))) +
-  geom_bar(width = 0.8, fill = "darkgreen") +
+  geom_bar(width = 0.6, fill = "darkgreen") +
   coord_polar(start = 0, direction = 1) +
+  scale_x_discrete(labels = c("N", "NE", "E", "SE", "S", "SW", "W", "NW", "N")) +
   theme_classic() +
+  theme(axis.text.x = element_text(size = 4)) +  # Adjust font size
   labs(title = "Wind Direction Distribution",
        x = "Wind Direction (Degrees)",
        y = "Frequency") +
