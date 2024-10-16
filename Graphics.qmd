@@ -2,7 +2,9 @@
 title: "Graphics"
 author: Briana Allman
 format: html
+date: "10/15/2024"
 editor: visual
+abstract: This Quarto document presents a comprehensive analysis of environmental data collected by the Rice Rivers Center. Utilizing a dataset derived from a previously written script, the analysis addresses various questions related to precipitation, temperature, water depth, and wind direction.
 ---
 
 ## Graphics Assignment
