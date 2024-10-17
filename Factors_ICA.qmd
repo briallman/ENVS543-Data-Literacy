@@ -1,0 +1,192 @@
+---
+title: "Factors_ICA"
+author: "Briana Allman"
+date: "10/17/2024"
+format: html
+editor: visual
+---
+
+Calling in Packages and Rice Function. (Hidden)
+
+```{r setup, include=FALSE}
+
+library (tidyverse)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(forcats)
+library(lunar)
+
+
+url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
+rice <- read_csv( url )
+
+
+rice$DateTime <- as.character(rice$DateTime)
+
+
+rice$DateTime <- trimws(rice$DateTime)
+
+
+rice <- rice %>%
+  mutate(
+    DateTime = as.POSIXct(DateTime, format = "%m/%d/%Y %I:%M:%S %p"),
+    Month = factor(month(DateTime, label = TRUE, abbr = TRUE), levels = month.abb),
+    Day = day(DateTime),
+    Weekday = factor(wday(DateTime, label = TRUE, abbr = TRUE), levels = wday(1:7, label = TRUE, abbr = TRUE))
+  )
+
+
+sum(is.na(rice$DateTime))
+
+
+na_entries <- rice %>%
+  filter(is.na(DateTime))
+
+print(na_entries)
+
+
+rice <- rice %>%
+  filter(!is.na(DateTime))
+
+
+rice <- rice %>%
+  mutate(
+    H2O_TempF = (H2O_TempC * 9/5) + 32, 
+    SurfaceWaterElev_ft = SurfaceWaterElev_m_levelNad83m * 3.28084
+  )
+ 
+
+rice_cleaned <- rice %>% 
+  select(
+    DateTime,
+    Month,
+    Day, 
+    Weekday,
+    RecordID,
+    PAR,
+    WindSpeed_mph,
+    WindDir,
+    AirTempF,
+    RelHumidity,
+    BP_HG,
+    Rain_in,
+    H2O_TempF,
+    SpCond_mScm,
+    Salinity_ppt,
+    PH,
+    Turbidity_ntu,
+    Chla_ugl,
+    BGAPC_CML,
+    BGAPC_rfu,
+    ODO_sat,
+    ODO_mgl,
+    Depth_ft,
+    SurfaceWaterElev_ft
+  )
+
+```
+
+Change the order of the weekdays to start with Monday.
+
+```{r}
+# Adjusting Days
+rice_cleaned <- rice_cleaned %>%
+  mutate(Weekday = fct_relevel(Weekday, c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")))
+
+# Create a table
+weekday_table <- table(rice_cleaned$Weekday)
+
+# Print the table
+print(weekday_table)
+
+# Create a bar chart
+ggplot(rice_cleaned, aes(x = Weekday)) +
+  geom_bar(fill = "skyblue") +
+  labs(title = "Weekday Frequency", x = "Weekday", y = "Frequency")
+```
+
+Add an additional factor column where Weekday/Weekend based on the day of the week.
+
+```{r}
+# Create a new column "Weekday_Weekend"
+rice_cleaned <- rice_cleaned %>%
+  mutate(Weekday_Weekend = case_when(
+    Weekday %in% c("Sat", "Sun") ~ "Weekend",
+    TRUE ~ "Weekday"
+  ))
+
+# Create a contingency table
+contingency_table <- table(rice_cleaned$Weekday, rice_cleaned$Weekday_Weekend)
+
+# Print the contingency table
+print(contingency_table)
+
+# Convert contingency table to a data frame for plotting
+contingency_df <- as.data.frame(contingency_table)
+
+# Create a heatmap using ggplot2
+ggplot(data = contingency_df, aes(x = Var1, y = Var2, fill = Freq)) +
+  geom_tile() +
+  scale_fill_gradient(low = "darkblue", high = "red") +
+  labs(title = "Weekday/Weekend Comparison", x = "Original Weekday", y = "Weekday/Weekend")
+```
+
+Create a column based on the \*four primary lunar phases\* for the data collected.
+
+```{r}
+rice_cleaned <- rice_cleaned %>%
+  mutate(LunarPhase = lunar.phase(as.Date(DateTime), name = TRUE),
+         LunarPhase = fct_infreq(LunarPhase))
+
+ggplot(rice_cleaned, aes(x = as.Date(DateTime), fill = LunarPhase)) +
+  geom_bar(stat = "count") +
+  labs(title = "Lunar Phases Over Time",
+       x = "Date",
+       y = "Number of Observations",
+       fill = "Lunar Phase") +
+  theme_minimal()
+```
+
+\[Superstar Question\] Create a column that indicates whether the tide is coming in (Incoming) or going out (Outgoing).
+
+```{r}
+rice_cleaned <- rice_cleaned %>%
+  arrange(DateTime) %>%
+  mutate(Tide_Status = case_when(
+    Depth_ft > lag(Depth_ft) ~ "Incoming",
+    Depth_ft < lag(Depth_ft) ~ "Outgoing",
+    TRUE ~ NA_character_
+  ),
+  Tide_Status = fct_infreq(Tide_Status))
+
+#Remove NA
+rice_cleaned <- rice_cleaned %>%
+  filter(!is.na(Tide_Status))
+
+# Create a summary table for Tide_Status
+tide_summary <- rice_cleaned %>%
+  count(Tide_Status)
+
+# Print the tide summary
+print(tide_summary)
+
+# Plot the tide movement over time
+ggplot(rice_cleaned, aes(x = as.Date(DateTime), y = Depth_ft, color = Tide_Status)) +
+  geom_line() +
+  labs(title = "Tide Movement Over Time",
+       x = "Date",
+       y = "Depth (ft)",
+       color = "Tide Status") +
+  theme_minimal()
+
+# Plot a bar chart of the tide summary using forcats
+ggplot(tide_summary, aes(x = Tide_Status, y = n, fill = Tide_Status)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Count of Incoming vs Outgoing Tides",
+       x = "Tide Status",
+       y = "Number of Observations") +
+  theme_minimal()
+```
+
+Upload a markdown document summarizing these changes in the Rice Rivers Center data set using tables or graphs or some other manner that demonstrates you made the changes.
