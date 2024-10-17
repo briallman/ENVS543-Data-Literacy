@@ -1,5 +1,5 @@
 ---
-title: "Factors_ICA"
+title: "Factors In Class Activity"
 author: "Briana Allman"
 date: "10/17/2024"
 format: html
@@ -114,7 +114,8 @@ rice_cleaned <- rice_cleaned %>%
   mutate(Weekday_Weekend = case_when(
     Weekday %in% c("Sat", "Sun") ~ "Weekend",
     TRUE ~ "Weekday"
-  ))
+  )) %>%
+  mutate(Weekday_Weekend = fct_relevel(Weekday_Weekend, "Weekday", "Weekend"))
 
 # Create a contingency table
 contingency_table <- table(rice_cleaned$Weekday, rice_cleaned$Weekday_Weekend)
