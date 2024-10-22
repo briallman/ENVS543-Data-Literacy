@@ -17,3 +17,5 @@ My Class Repository: Data Literacy (ENVS 543)
 - [Graphics Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Graphics.html)
 
 - [Factors In Class Activity](https://briallman.github.io/ENVS543-Data-Literacy/Factors_ICA.html)
+
+- [Spatial Points Assignment](https://briallman.github.io/ENVS543-Data-Literacy/SpatialPointsAssignment.html)
