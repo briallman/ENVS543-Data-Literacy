@@ -1,5 +1,6 @@
 ---
-title: "Factors In Class Activity"
+title: "Factors In Class Activity
+"
 author: "Briana Allman"
 date: "10/17/2024"
 format: html
