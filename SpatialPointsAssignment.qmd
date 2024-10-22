@@ -2,10 +2,7 @@
 title: "In Class Activity: Spatial Points Assignment"
 author: "Briana Allman"
 date: "10/21/2024"
-format: 
-  html:
-    code-tools: true
-    toc: false
+format: html
 ---
 
 <center>
