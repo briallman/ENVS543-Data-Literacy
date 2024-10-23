@@ -1,0 +1,73 @@
+---
+title: "Raster Assignment"
+author: "Briana Allman"
+date: 10/22/2024
+format: html
+editor: visual
+---
+
+Load the raster and point data in and crop to an appropriate size to display the locations of the sampling plots and make a label for each site.
+
+```{r}
+
+library(tidyverse)
+library(raster)
+library(sf)
+library(ggplot2)
+library(ggspatial)
+library(shiny)
+
+beetle_url <- "https://raw.githubusercontent.com/DyerlabTeaching/Raster-Data/main/data/AraptusDispersalBias.csv"
+
+bug <- read_csv( beetle_url )
+
+raster_url <- "https://github.com/DyerlabTeaching/Raster-Data/raw/main/data/alt_22.tif"
+
+altitude_raster <- raster(raster_url)
+
+# Convert bug data to spatial points using sf
+bug_sf <- st_as_sf(bug, coords = c("Longitude", "Latitude"), crs = 4326)
+
+# Crop the raster to the extent of the sampling plots
+cropped_raster <- crop(altitude_raster, extent(bug_sf))
+
+# Create a base map with the raster and sampling points
+ggplot() +
+  layer_spatial(cropped_raster) +
+  geom_sf(data = bug_sf, color = "red", size = 3) +
+  geom_sf_label(data = bug_sf, aes(label = Site), nudge_y = 0.01, nudge_x = 0.01, size = 3, color = "black") +
+  annotation_scale(location = "bl", width_hint = 0.5) +
+  annotation_north_arrow(location = "bl", which_north = "true", style = north_arrow_fancy_orienteering()) +
+  ggtitle("Site Map") +
+  labs(x = "Longitude", y = "Latitude") +  # Add labels for the x and y axes
+  theme_minimal()+
+  theme(legend.position = "none")
+```
+
+Use the `click()` function to crop the raster and filter the sites to include only the sampling locations that are in the Cape regions (e.g., south of site labeled #75).  Plot the raster of elevation and all cape region locales with sex-ratio represented as the size of the plot symbol.
+
+```{r}
+# Coordinates for site 75
+site75_coords <- c(Longitude = -110.7460, Latitude = 24.58843)
+
+# Filter for cape sites (south of site 75)
+cape_sites <- bug[bug$Latitude < site75_coords["Latitude"], ]
+
+cape_sites <- bug_sf %>% 
+  filter(Latitude < site75_coords["Latitude"])
+
+cropped_raster <- crop(altitude_raster, st_bbox(cape_sites))
+
+```
+
+The peninsula of Baja California is divided into the States of *Baja California Norte* and *Baja California Sur*. The border between these states is at 28° Latitude. Divide the sample locations into groups based on which state they are located in and plot the average sex ratio of the sample sites partitioned by each site.  
+
+```{r}
+
+```
+
+Is there a relationship between the observed sex ratio and the elevation at that site?  Plot these, and in the text, perform a correlation test (cor.test()) and report the values as if you were writing them up in a results section.
+
+```{r}
+
+```

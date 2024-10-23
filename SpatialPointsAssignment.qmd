@@ -78,15 +78,15 @@ bug <- bug %>%
   mutate(Site = as.factor(Site))
 
 # Create the leaflet map
-leaflet(bug) %>%
-  addTiles() %>%
-  addMarkers(
-    ~Longitude, ~Latitude,
-    label = ~paste0("Site: ", Site),
-    popup = ~paste0("Site: ", Site, "<br>",
-                   "Latitude: ", Latitude, "<br>",
-                   "Longitude: ", Longitude)
-  )
+bug %>% 
+   mutate ( Label = paste( "<b>Site:" , Site)) %>% 
+   leaflet() %>% 
+   addMarkers(~ Longitude, ~Latitude, popup = ~Label) %>% 
+   addProviderTiles("OpenTopoMap")
+```
+
+```{r}
+ 
 ```
 
 ### Converting to `sf` Objects

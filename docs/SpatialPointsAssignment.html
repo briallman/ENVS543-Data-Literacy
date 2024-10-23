@@ -79,6 +79,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="SpatialPointsAssignment_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="SpatialPointsAssignment_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="SpatialPointsAssignment_files/libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="SpatialPointsAssignment_files/libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="SpatialPointsAssignment_files/libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -195,18 +197,14 @@ dbl (8): Males, Females, Suitability, MFRatio, GenVarArapat, GenVarEuphli, L...
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Site =</span> <span class="fu">as.factor</span>(Site))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the leaflet map</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(bug) <span class="sc">%&gt;%</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>Longitude, <span class="sc">~</span>Latitude,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="sc">~</span><span class="fu">paste0</span>(<span class="st">"Site: "</span>, Site),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">popup =</span> <span class="sc">~</span><span class="fu">paste0</span>(<span class="st">"Site: "</span>, Site, <span class="st">"&lt;br&gt;"</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Latitude: "</span>, Latitude, <span class="st">"&lt;br&gt;"</span>,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Longitude: "</span>, Longitude)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>bug <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span> ( <span class="at">Label =</span> <span class="fu">paste</span>( <span class="st">"&lt;b&gt;Site:"</span> , Site)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">addMarkers</span>(<span class="sc">~</span> Longitude, <span class="sc">~</span>Latitude, <span class="at">popup =</span> <span class="sc">~</span>Label) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">addProviderTiles</span>(<span class="st">"OpenTopoMap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item" id="htmlwidget-4e0e8200febb790dfebe" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-4e0e8200febb790dfebe">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[[26.63783,24.00789,26.94589,25.0247,27.52944,29.32541,28.66056,25.91409,27.0367,25.60521,26.20876,27.3632,27.18232,27.40498,28.96651,28.03661,25.34819,28.72796,24.87611,24.2115,28.22308,25.55757,28.40846,29.01457,27.2028,24.21441,23.2855,24.13389,24.58843,24.0195,26.0155],[-109.327,-109.85071,-112.04613,-111.675,-113.31609,-114.29353,-113.99141,-112.08062,-112.986,-111.32638,-111.37833,-112.964,-112.66552,-112.52959,-113.66787,-113.39991,-111.60056,-113.48973,-110.69175,-110.951,-113.18263,-111.21563,-112.86985,-113.94486,-112.408,-110.27252,-110.10429,-110.46236,-110.74599,-110.096,-111.35475],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["Site: 32<br>Latitude: 26.63783<br>Longitude: -109.327","Site: 73<br>Latitude: 24.00789<br>Longitude: -109.85071","Site: 93<br>Latitude: 26.94589<br>Longitude: -112.04613","Site: const<br>Latitude: 25.0247<br>Longitude: -111.675","Site: 159<br>Latitude: 27.52944<br>Longitude: -113.31609","Site: 88<br>Latitude: 29.32541<br>Longitude: -114.29353","Site: 177<br>Latitude: 28.66056<br>Longitude: -113.99141","Site: 166<br>Latitude: 25.91409<br>Longitude: -112.08062","Site: 161<br>Latitude: 27.0367<br>Longitude: -112.986","Site: 64<br>Latitude: 25.60521<br>Longitude: -111.32638","Site: 169<br>Latitude: 26.20876<br>Longitude: -111.37833","Site: sfran<br>Latitude: 27.3632<br>Longitude: -112.964","Site: 12<br>Latitude: 27.18232<br>Longitude: -112.66552","Site: 160<br>Latitude: 27.40498<br>Longitude: -112.52959","Site: 84<br>Latitude: 28.96651<br>Longitude: -113.66787","Site: 89<br>Latitude: 28.03661<br>Longitude: -113.39991","Site: 51<br>Latitude: 25.34819<br>Longitude: -111.60056","Site: 175<br>Latitude: 28.72796<br>Longitude: -113.48973","Site: 77<br>Latitude: 24.87611<br>Longitude: -110.69175","Site: 163<br>Latitude: 24.2115<br>Longitude: -110.951","Site: 171<br>Latitude: 28.22308<br>Longitude: -113.18263","Site: 168<br>Latitude: 25.55757<br>Longitude: -111.21563","Site: 173<br>Latitude: 28.40846<br>Longitude: -112.86985","Site: 9<br>Latitude: 29.01457<br>Longitude: -113.94486","Site: 162<br>Latitude: 27.2028<br>Longitude: -112.408","Site: 48<br>Latitude: 24.21441<br>Longitude: -110.27252","Site: Aqu<br>Latitude: 23.2855<br>Longitude: -110.10429","Site: 153<br>Latitude: 24.13389<br>Longitude: -110.46236","Site: 75<br>Latitude: 24.58843<br>Longitude: -110.74599","Site: 157<br>Latitude: 24.0195<br>Longitude: -110.096","Site: 58<br>Latitude: 26.0155<br>Longitude: -111.35475"],null,null,null,["Site: 32","Site: 73","Site: 93","Site: const","Site: 159","Site: 88","Site: 177","Site: 166","Site: 161","Site: 64","Site: 169","Site: sfran","Site: 12","Site: 160","Site: 84","Site: 89","Site: 51","Site: 175","Site: 77","Site: 163","Site: 171","Site: 168","Site: 173","Site: 9","Site: 162","Site: 48","Site: Aqu","Site: 153","Site: 75","Site: 157","Site: 58"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[23.2855,29.32541],"lng":[-114.29353,-109.327]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-f4b3c9653d4217f3b4b7" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f4b3c9653d4217f3b4b7">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addMarkers","args":[[26.63783,24.00789,26.94589,25.0247,27.52944,29.32541,28.66056,25.91409,27.0367,25.60521,26.20876,27.3632,27.18232,27.40498,28.96651,28.03661,25.34819,28.72796,24.87611,24.2115,28.22308,25.55757,28.40846,29.01457,27.2028,24.21441,23.2855,24.13389,24.58843,24.0195,26.0155],[-109.327,-109.85071,-112.04613,-111.675,-113.31609,-114.29353,-113.99141,-112.08062,-112.986,-111.32638,-111.37833,-112.964,-112.66552,-112.52959,-113.66787,-113.39991,-111.60056,-113.48973,-110.69175,-110.951,-113.18263,-111.21563,-112.86985,-113.94486,-112.408,-110.27252,-110.10429,-110.46236,-110.74599,-110.096,-111.35475],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},["<b>Site: 32","<b>Site: 73","<b>Site: 93","<b>Site: const","<b>Site: 159","<b>Site: 88","<b>Site: 177","<b>Site: 166","<b>Site: 161","<b>Site: 64","<b>Site: 169","<b>Site: sfran","<b>Site: 12","<b>Site: 160","<b>Site: 84","<b>Site: 89","<b>Site: 51","<b>Site: 175","<b>Site: 77","<b>Site: 163","<b>Site: 171","<b>Site: 168","<b>Site: 173","<b>Site: 9","<b>Site: 162","<b>Site: 48","<b>Site: Aqu","<b>Site: 153","<b>Site: 75","<b>Site: 157","<b>Site: 58"],null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addProviderTiles","args":["OpenTopoMap",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"limits":{"lat":[23.2855,29.32541],"lng":[-114.29353,-109.327]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -253,7 +251,7 @@ dbl (8): Males, Females, Suitability, MFRatio, GenVarArapat, GenVarEuphli, L...
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="SpatialPointsAssignment_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="SpatialPointsAssignment_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -287,7 +285,7 @@ dbl (8): Males, Females, Suitability, MFRatio, GenVarArapat, GenVarEuphli, L...
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="SpatialPointsAssignment_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="SpatialPointsAssignment_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -316,7 +314,7 @@ dbl (8): Males, Females, Suitability, MFRatio, GenVarArapat, GenVarEuphli, L...
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="SpatialPointsAssignment_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="SpatialPointsAssignment_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
