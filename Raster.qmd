@@ -4,70 +4,189 @@ author: "Briana Allman"
 date: 10/22/2024
 format: html
 editor: visual
+abstract: "This study examines the spatial distribution of sampling plots and their associated sex ratios in the Cape regions of Baja California, utilizing raster elevation data. By employing the click() function to crop the raster, I focus on sampling locations south of site #75, visualizing these sites with plot symbols scaled to represent sex ratio differences. The sampling locations are further categorized into two groups based on their geographic positioning in Baja California Norte and Baja California Sur, with average sex ratios calculated for each state. Additionally, I investigate the relationship between observed sex ratios and elevation at each site, conducting a correlation analysis to assess the strength and significance of this relationship. Results indicate potential trends that contribute to understanding the ecological dynamics in the region, highlighting the influence of elevation on sex ratios within the sampling framework."
 ---
 
-Load the raster and point data in and crop to an appropriate size to display the locations of the sampling plots and make a label for each site.
+**Load the raster and point data in and crop to an appropriate size to display the locations of the sampling plots and make a label for each site.**
 
-```{r}
-
+```{r setup, include=FALSE}
 library(tidyverse)
 library(raster)
+library(terra)
 library(sf)
 library(ggplot2)
 library(ggspatial)
 library(shiny)
-
-beetle_url <- "https://raw.githubusercontent.com/DyerlabTeaching/Raster-Data/main/data/AraptusDispersalBias.csv"
-
-bug <- read_csv( beetle_url )
-
-raster_url <- "https://github.com/DyerlabTeaching/Raster-Data/raw/main/data/alt_22.tif"
-
-altitude_raster <- raster(raster_url)
-
-# Convert bug data to spatial points using sf
-bug_sf <- st_as_sf(bug, coords = c("Longitude", "Latitude"), crs = 4326)
-
-# Crop the raster to the extent of the sampling plots
-cropped_raster <- crop(altitude_raster, extent(bug_sf))
-
-# Create a base map with the raster and sampling points
-ggplot() +
-  layer_spatial(cropped_raster) +
-  geom_sf(data = bug_sf, color = "red", size = 3) +
-  geom_sf_label(data = bug_sf, aes(label = Site), nudge_y = 0.01, nudge_x = 0.01, size = 3, color = "black") +
-  annotation_scale(location = "bl", width_hint = 0.5) +
-  annotation_north_arrow(location = "bl", which_north = "true", style = north_arrow_fancy_orienteering()) +
-  ggtitle("Site Map") +
-  labs(x = "Longitude", y = "Latitude") +  # Add labels for the x and y axes
-  theme_minimal()+
-  theme(legend.position = "none")
+library(dplyr)
+library(ggrepel)
 ```
 
-Use the `click()` function to crop the raster and filter the sites to include only the sampling locations that are in the Cape regions (e.g., south of site labeled #75).  Plot the raster of elevation and all cape region locales with sex-ratio represented as the size of the plot symbol.
+```{r}
+# Load raster data
+url <- "https://github.com/DyerlabTeaching/Raster-Data/raw/main/data/alt_22.tif"
+raster <- raster(url)
+
+# Load and format beetle data
+beetle_url <- "https://raw.githubusercontent.com/dyerlab/ENVS-Lectures/master/data/Araptus_Disperal_Bias.csv"
+
+read_csv(beetle_url) %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326) -> bug
+
+# Define extent and crop raster
+baja_extent <- extent(c(-116, -109, 22, 30))
+alt <- crop(raster, baja_extent)
+
+# Convert raster to data frame for ggplot
+alt.df <- alt %>%
+  rasterToPoints() %>%
+  as.data.frame() %>% 
+  transmute(Longitude = x,
+            Latitude = y,
+            Elevation = alt_22)
+
+# Create the elevation map
+baja_elevation <- alt.df %>%
+  ggplot() + 
+  geom_raster(aes(x = Longitude, y = Latitude, fill = Elevation)) + 
+  coord_equal() +
+  theme_minimal()
+
+# Add elevation gradient and sampling plot points with labels
+baja_map <- baja_elevation + 
+  scale_fill_gradient2(low = "darkolivegreen", mid = "yellow", high = "brown", midpoint = 1000) +
+  geom_sf(data = bug, color = "dodgerblue2", alpha = 0.75) + 
+  geom_sf_label(data = bug, aes(label = Site), nudge_y = 0.01, nudge_x = 0.01, size = 3, color = "black") +
+  annotation_scale(location = "bl", width_hint = 0.5) +
+  annotation_north_arrow(location = "bl", which_north = "true", style = north_arrow_fancy_orienteering()) +
+  ggtitle("Site Map with Sampling Locations") +
+  labs(x = "Longitude", y = "Latitude") +
+  theme_minimal()
+
+# Display the map
+print(baja_map)
+```
+
+**Use the `click()` function to crop the raster and filter the sites to include only the sampling locations that are in the Cape regions (e.g., south of site labeled #75). Plot the raster of elevation and all cape region locales with sex-ratio represented as the size of the plot symbol.**
 
 ```{r}
+
+# Define extent and crop raster
+cape <- extent(c(-111.75, -109.5, 23.25, 24.5))
+cape_raster <- crop(raster, cape)
+
+# Convert raster to data frame for ggplot
+cape_raster.df <- cape_raster %>%
+  rasterToPoints() %>%
+  as.data.frame() %>% 
+  transmute(Longitude = x,
+            Latitude = y,
+            Elevation = alt_22)
+
+# Create the elevation map
+cape_elevation <- cape_raster.df %>%
+  ggplot() + 
+  geom_raster(aes(x = Longitude, y = Latitude, fill = Elevation)) + 
+  coord_equal() +
+  theme_minimal()
+
 # Coordinates for site 75
 site75_coords <- c(Longitude = -110.7460, Latitude = 24.58843)
 
-# Filter for cape sites (south of site 75)
-cape_sites <- bug[bug$Latitude < site75_coords["Latitude"], ]
+# Extract coordinates as separate columns and add them to the bug dataset
+bug <- bug %>%
+  mutate(Longitude = st_coordinates(.)[, 1],
+         Latitude = st_coordinates(.)[, 2])
 
-cape_sites <- bug_sf %>% 
+# Now filter for cape sites (south of site 75)
+cape_sites <- bug %>%
   filter(Latitude < site75_coords["Latitude"])
 
-cropped_raster <- crop(altitude_raster, st_bbox(cape_sites))
 
+# Add elevation gradient and sampling plot points with labels
+cape_map <- cape_elevation + 
+  scale_fill_gradient2(low = "darkolivegreen", mid = "yellow", high = "brown", midpoint = 1000) +
+  geom_sf(data = cape_sites, aes(size = MFRatio), color = "dodgerblue2", alpha = 0.75) + 
+  annotation_scale(location = "bl", width_hint = 0.5) +
+  annotation_north_arrow(location = "bl", which_north = "true", style = north_arrow_fancy_orienteering()) +
+  ggtitle("Site Map for Cape Region") +
+  labs(x = "Longitude", y = "Latitude") +
+  theme_minimal() +
+  geom_text_repel(aes(label = Site,
+                      geometry = geometry),
+                  data = cape_sites,
+                  stat = "sf_coordinates", 
+                  size = 4, 
+                  color = "black") + 
+  coord_sf()
+
+# Display the map
+print(cape_map)
 ```
 
-The peninsula of Baja California is divided into the States of *Baja California Norte* and *Baja California Sur*. The border between these states is at 28° Latitude. Divide the sample locations into groups based on which state they are located in and plot the average sex ratio of the sample sites partitioned by each site.  
+**The peninsula of Baja California is divided into the States of *Baja California Norte* and *Baja California Sur*. The border between these states is at 28° Latitude. Divide the sample locations into groups based on which state they are located in and plot the average sex ratio of the sample sites partitioned by each site.**
 
 ```{r}
+# Add state column to categorize sites based on latitude (28° boundary)
+bug <- bug %>%
+  mutate(State = if_else(Latitude >= 28, "Baja California Norte", "Baja California Sur"))
 
+# Calculate average sex ratio for each state
+state_avg_sex_ratio <- bug %>%
+  group_by(State) %>%
+  summarize(avg_sex_ratio = mean(MFRatio, na.rm = TRUE))
+
+# Plot average sex ratio by state
+state_sex_ratio_plot <- ggplot(state_avg_sex_ratio, aes(x = State, y = avg_sex_ratio, fill = State)) +
+  geom_col(show.legend = FALSE) +
+  scale_fill_manual(values = c("Baja California Norte" = "dodgerblue2", "Baja California Sur" = "darkorange2")) +
+  ggtitle("Average Sex Ratio by State") +
+  labs(x = "State", y = "Average Sex Ratio") +
+  theme_minimal()
+
+# Display the plot
+print(state_sex_ratio_plot)
 ```
 
-Is there a relationship between the observed sex ratio and the elevation at that site?  Plot these, and in the text, perform a correlation test (cor.test()) and report the values as if you were writing them up in a results section.
+**Is there a relationship between the observed sex ratio and the elevation at that site? Plot these, and in the text, perform a correlation test (cor.test()) and report the values as if you were writing them up in a results section.**
 
 ```{r}
+# Elevation Data
+elevation_data <- alt.df %>%
+  as_tibble() %>%
+  dplyr::select(Longitude, Latitude, Elevation)
 
+# Convert elevation_data to an sf object
+elevation_data_sf <- elevation_data %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+
+# Ensure bug is also an sf object
+bug_sf <- bug %>%
+  st_as_sf(coords = c("Longitude", "Latitude"), crs = 4326)
+
+# Perform a spatial join to match the nearest points
+bug_elevation <- st_join(bug_sf, elevation_data_sf, join = st_nearest_feature)
+
+# Check if Elevation data is now present
+print(summary(bug_elevation$Elevation))
+
+# Convert bug_elevation back to a data frame for plotting
+bug_elevation_df <- bug_elevation %>%
+  as.data.frame()
+
+# Plot Sex Ratio vs Elevation
+sex_ratio_elevation_plot <- ggplot(bug_elevation_df, aes(x = Elevation, y = MFRatio)) +
+  geom_point(color = "black", alpha = 0.7) +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  ggtitle("Relationship between Sex Ratio and Elevation") +
+  labs(x = "Elevation (meters)", y = "Sex Ratio (Male/Female)") +
+  theme_minimal()
+
+# Display the plot
+print(sex_ratio_elevation_plot)
+
+# Perform a correlation test
+cor_test <- cor.test(bug_elevation_df$Elevation, bug_elevation_df$MFRatio, use = "complete.obs")
+print(cor_test)
 ```
+
+A Pearson correlation analysis was conducted to examine the relationship between elevation and sex ratio at the sampled locations. The results indicated no significant correlation between elevation and sex ratio, r(29) = -0.10, p = 0.58. The 95% confidence interval for the correlation coefficient ranged from -0.44 to 0.26, suggesting that changes in elevation are not associated with variations in the observed sex ratio in this sample.

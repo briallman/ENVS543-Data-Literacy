@@ -1,0 +1,228 @@
+---
+title: "Textual Analysis"
+date: 10/24/2024
+author: "Briana Allman"
+format: html
+editor: visual
+---
+
+## Textual Analysis
+
+Loading in Packages
+
+```{r}
+
+library(tidyverse)
+library(stringr)
+library(readr)
+library(lubridate)
+```
+
+Review
+
+```{r}
+x <- "Briana"
+y <- 'Allman'
+z <- 'Bob Marley once said, "It is a foolish dog who barks at a passing bird."'
+w <- "'Coding is fun! said Dyer.'"
+
+w
+x
+y
+z
+
+print(z)
+cat(z)
+```
+
+Creating Text Variables
+
+```{r}
+paste("Bob","is","not","Here","man")
+
+paste("Bob","is","not","Here","man", sep = ", ")
+
+paste("My favorite number is", 80224, "!")
+
+paste("My favorite number is ",80224, "!", sep = "")
+
+
+# Does not tell you each individual word count...just number of vectors within the text varibale
+
+length(z) 
+
+# Character length
+str_length(z)
+
+# Example!!!
+vec <- c(w,x,y,z)
+
+#Number of vectors
+length(vec)
+
+# Number of characters in each vector
+str_length(vec)
+
+
+# Another good example
+a <- 1:10
+paste(a)
+paste (a, collapse = ", ")
+
+# Another good example
+
+b <- LETTERS[1:10]
+b
+
+paste(b, a, sep = "-")
+paste(a, b, collapse = "x")
+
+#Stringer Library
+str_c(a)
+str_c(a,b)
+```
+
+Finding Things in Strings
+
+```{r}
+# Detecting withhin a string -> Within parenthesis (which string, pattern)
+str_detect(z, "Marley")
+
+# IT IS CASE SENSITIVE
+str_detect(z, "marley")
+
+# How many objects are in 
+
+str_count (z, "a")
+
+# How many within a string
+str_count(vec, "Dyer")
+str_detect(vec, "Dyer")
+
+
+#Finding the location -> character count = number
+str_locate(z, "dog")
+str_locate(vec, "a")
+
+
+# Locating all the locations
+str_locate_all(vec, "a")
+```
+
+Substituting in strings
+
+```{r}
+str_sub (z, 24, -2)
+
+c <- z # This preserves the original 
+
+str_sub(c, 24,-2) <- "hey"
+
+c
+```
+
+Deleting
+
+```{r}
+str_remove(z, "dog")
+
+str_remove_all(z,"a")
+```
+
+Truncating
+
+```{r}
+# Truncate this to "x" characters
+
+str_trunc(z,23)
+```
+
+Capitalization
+
+```{r}
+str_to_lower (z)
+
+str_to_upper (z)
+
+str_to_sentence (z)
+
+str_to_title (z)
+
+#Searching where the characters are...
+str_sub(z, 23,24)
+```
+
+## Application
+
+***Regular Expressions: Plotting the number of classes in the 1XX, 2XX, and 3XX levels and making a word cloud with class name info.***
+
+Reading in Data
+
+```{r}
+url <- "https://raw.githubusercontent.com/DyerlabTeaching/Textual-Data/refs/heads/main/data/ENVSclasses.txt?token=GHSAT0AAAAAACWO27UIA46V72P7DBZEP5EKZYZFFXQ"
+
+envs <- read_lines( url )
+
+head(envs, 25)
+```
+
+Data Exploration
+
+```{r}
+# Creating an index based on the detection of "ENVS"
+str_detect(envs, "ENVS") -> idx
+
+envs[idx]
+
+# Cuts it down a good but...but there are still extra things in the string
+length(envs)
+length(envs[idx])
+
+# Narrowing down our search: Pattern Matching -> Identify what we mean when we say we are looking for 4 uppercase letters followed by 3 numbers followed by additional text -> REGULAR EXPRESSIONS
+```
+
+Regular Expressions
+
+```{r}
+envs101 <- envs[1]
+envs101
+
+# Matching & Searching Within
+str_view(envs101, "ENVS")
+
+str_view(envs101, "Hour")
+
+str_view_all(envs101, "o")
+
+# Shorthands -> Allows us to match any numerical digit -> [:digit:]
+str_view(envs101, "[:digit:]")
+
+# Finds 3 digits right next to each other
+str_view(envs101, "[:digit:]{2,3}")
+
+# Punctuation
+str_view(envs101, "[:punct:]")
+
+# Letters
+str_view(envs101, "[:alpha:]")
+
+# Lowercase
+str_view(envs101, "[:lower:]")
+
+# Uppercase
+str_view(envs101, "[:upper:]")
+
+# Space
+str_view(envs101, "[:space:]")
+
+# ALL TOGEHTER
+
+str_view(envs, "[:alpha:]{4} [:digit:]{3}")
+
+str_view(envs, "[:upper:]{4} [:digit:]{3}")
+
+# Be Careful -> wrong
+str_view(envs, "[:lower:]{4} [:digit:]{3}")
+
+str_view( envs101, "[A-Z]{4} [0-9]{3}")
+```
