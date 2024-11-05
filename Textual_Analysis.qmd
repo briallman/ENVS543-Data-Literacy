@@ -10,9 +10,9 @@ editor: visual
 
 ***Regular Expressions: Plotting the number of classes in the 1XX, 2XX, and 3XX levels and making a word cloud with class name info.***
 
-Loading in Packages
+Loading in Packages (Hidden)
 
-```{r}
+```{r setup, include=FALSE}
 
 library(tidyverse)
 library(stringr)
@@ -184,12 +184,12 @@ word_freq_2 <- df %>%
   unnest_tokens(word, title) %>%  # Break titles into individual words
   count(word, sort = TRUE)        # Count each unique word's occurrence
 
-# Step 2: Remove common stop words if desired
-# You can use the `stop_words` dataset in the `tidytext` package to remove them
-# install.packages("tidytext")  # if you don't have tidytext installed
+# Step 2: Remove common stop words
 library(tidytext)
 word_freq_2 <- word_freq_2 %>%
   anti_join(stop_words, by = "word")
+
+word_freq_filtered <- word_freq_2 %>% top_n(30, n)
 
 # Step 3: Generate the word cloud
 wordcloud2(word_freq_2, size = 1.0)
