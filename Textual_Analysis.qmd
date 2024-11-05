@@ -8,6 +8,8 @@ editor: visual
 
 ## Textual Analysis
 
+***Regular Expressions: Plotting the number of classes in the 1XX, 2XX, and 3XX levels and making a word cloud with class name info.***
+
 Loading in Packages
 
 ```{r}
@@ -16,145 +18,11 @@ library(tidyverse)
 library(stringr)
 library(readr)
 library(lubridate)
+library(ggplot2)
+library(wordcloud2)
+library(dplyr)
+library(tidytext)
 ```
-
-Review
-
-```{r}
-x <- "Briana"
-y <- 'Allman'
-z <- 'Bob Marley once said, "It is a foolish dog who barks at a passing bird."'
-w <- "'Coding is fun! said Dyer.'"
-
-w
-x
-y
-z
-
-print(z)
-cat(z)
-```
-
-Creating Text Variables
-
-```{r}
-paste("Bob","is","not","Here","man")
-
-paste("Bob","is","not","Here","man", sep = ", ")
-
-paste("My favorite number is", 80224, "!")
-
-paste("My favorite number is ",80224, "!", sep = "")
-
-
-# Does not tell you each individual word count...just number of vectors within the text varibale
-
-length(z) 
-
-# Character length
-str_length(z)
-
-# Example!!!
-vec <- c(w,x,y,z)
-
-#Number of vectors
-length(vec)
-
-# Number of characters in each vector
-str_length(vec)
-
-
-# Another good example
-a <- 1:10
-paste(a)
-paste (a, collapse = ", ")
-
-# Another good example
-
-b <- LETTERS[1:10]
-b
-
-paste(b, a, sep = "-")
-paste(a, b, collapse = "x")
-
-#Stringer Library
-str_c(a)
-str_c(a,b)
-```
-
-Finding Things in Strings
-
-```{r}
-# Detecting withhin a string -> Within parenthesis (which string, pattern)
-str_detect(z, "Marley")
-
-# IT IS CASE SENSITIVE
-str_detect(z, "marley")
-
-# How many objects are in 
-
-str_count (z, "a")
-
-# How many within a string
-str_count(vec, "Dyer")
-str_detect(vec, "Dyer")
-
-
-#Finding the location -> character count = number
-str_locate(z, "dog")
-str_locate(vec, "a")
-
-
-# Locating all the locations
-str_locate_all(vec, "a")
-```
-
-Substituting in strings
-
-```{r}
-str_sub (z, 24, -2)
-
-c <- z # This preserves the original 
-
-str_sub(c, 24,-2) <- "hey"
-
-c
-```
-
-Deleting
-
-```{r}
-str_remove(z, "dog")
-
-str_remove_all(z,"a")
-```
-
-Truncating
-
-```{r}
-# Truncate this to "x" characters
-
-str_trunc(z,23)
-```
-
-Capitalization
-
-```{r}
-str_to_lower (z)
-
-str_to_upper (z)
-
-str_to_sentence (z)
-
-str_to_title (z)
-
-#Searching where the characters are...
-str_sub(z, 23,24)
-```
-
-## Application
-
-***Regular Expressions: Plotting the number of classes in the 1XX, 2XX, and 3XX levels and making a word cloud with class name info.***
 
 Reading in Data
 
@@ -225,4 +93,104 @@ str_view(envs, "[:upper:]{4} [:digit:]{3}")
 str_view(envs, "[:lower:]{4} [:digit:]{3}")
 
 str_view( envs101, "[A-Z]{4} [0-9]{3}")
+```
+
+```{r}
+# Starting point class 2
+
+pattern <- "^[A-Z]{4} [0-9]{3}.+[0-9] Hour[s]?\\.$"
+grepl(pattern, envs) -> idx
+titles <- envs[idx]
+titles
+
+str_split(titles, pattern = "\\.")
+str_split(titles, pattern = "\\.", simplify = TRUE) -> raw   #This is a Matrix
+
+
+head (raw)
+
+data.frame(course = raw[,1],
+                           title = str_trim(raw[,2]),
+                           hours = str_trim(raw[,3])) %>% 
+  mutate(hours = str_remove(hours, " Hours?$")) -> df
+
+# Splitting the course to seperate program
+df <- df %>%
+  separate(course, into = c("program", "course"), sep = " ")
+
+# Making them numeric and making topics 1 credit
+df <- df %>%
+  mutate(hours = case_when(
+    str_detect(hours, "-") ~ as.numeric(str_extract(hours, "^[0-9]+")),
+    TRUE ~ as.numeric(hours)
+  ))
+```
+
+Creating Plot for Classes
+
+```{r}
+df <- df %>%
+  mutate(course = as.numeric(course))
+
+# Extract course level by taking the hundreds digit directly from numeric values
+envs_levels <- as.character(floor(df$course / 100) * 100)
+
+# Convert to a data frame for easier manipulation
+envs_levels_df <- tibble(course = df$course, level = envs_levels)
+
+# Group by general course level (100, 200, etc.) and count the courses in each
+level_counts <- envs_levels_df %>%
+  group_by(level) %>%
+  summarise(count = n(), .groups = 'drop')
+
+# Check if level_counts has data
+print(level_counts)
+
+# Plotting the course levels
+ggplot(level_counts, aes(x = level, y = count, fill = level)) +
+  geom_bar(stat = "identity", width = 0.6) +
+  scale_fill_brewer(palette = "Blues") +
+  theme_minimal() +
+  labs(
+    title = "Number of Courses by Level",
+    x = "Course Level",
+    y = "Number of Courses"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12),
+    legend.position = "none"
+  ) +
+  geom_text(aes(label = count), vjust = -0.3, size = 4) +
+  expand_limits(y = max(level_counts$count) * 1.1)
+```
+
+Word Cloud with full course title
+
+```{r}
+# Create a word frequency table
+word_freq <- df %>%
+  count(title, sort = TRUE)
+
+wordcloud2(word_freq, size = 0.15)
+```
+
+Word Cloud based on word frequency in course titles
+
+```{r}
+# Step 1: Tokenize the words in the course titles
+word_freq_2 <- df %>%
+  unnest_tokens(word, title) %>%  # Break titles into individual words
+  count(word, sort = TRUE)        # Count each unique word's occurrence
+
+# Step 2: Remove common stop words if desired
+# You can use the `stop_words` dataset in the `tidytext` package to remove them
+# install.packages("tidytext")  # if you don't have tidytext installed
+library(tidytext)
+word_freq_2 <- word_freq_2 %>%
+  anti_join(stop_words, by = "word")
+
+# Step 3: Generate the word cloud
+wordcloud2(word_freq_2, size = 1.0)
 ```
