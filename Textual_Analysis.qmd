@@ -22,6 +22,8 @@ library(ggplot2)
 library(wordcloud2)
 library(dplyr)
 library(tidytext)
+library(htmlwidgets)
+library(tidyr)
 ```
 
 Reading in Data
@@ -166,14 +168,7 @@ ggplot(level_counts, aes(x = level, y = count, fill = level)) +
   expand_limits(y = max(level_counts$count) * 1.1)
 ```
 
-Word Cloud with full course title
-
-```{r}
-# Create a word frequency table
-word_freq <- df %>%
-  count(title, sort = TRUE)
-
-wordcloud2(word_freq, size = 0.15)
+```{}
 ```
 
 Word Cloud based on word frequency in course titles
@@ -188,8 +183,6 @@ word_freq_2 <- df %>%
 library(tidytext)
 word_freq_2 <- word_freq_2 %>%
   anti_join(stop_words, by = "word")
-
-word_freq_filtered <- word_freq_2 %>% top_n(30, n)
 
 # Step 3: Generate the word cloud
 wordcloud2(word_freq_2, size = 1.0)
