@@ -21,3 +21,5 @@ My Class Repository: Data Literacy (ENVS 543)
 - [Spatial Points Assignment](https://briallman.github.io/ENVS543-Data-Literacy/SpatialPointsAssignment.html)
 
 - [Raster Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Raster.html)
+
+- [Textual Analysis](https://briallman.github.io/ENVS543-Data-Literacy/Textual_Analysis.html)
