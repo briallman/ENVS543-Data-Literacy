@@ -20,6 +20,7 @@ library(tidytext)
 library(htmlwidgets)
 library(tidyr)
 library(GGally)
+library(gridExtra)
 
 # Reading in Files
 url <- "https://docs.google.com/spreadsheets/d/1Mk1YGH9LqjF7drJE-td1G_JkdADOU0eMlrP01WFBT8s/pub?gid=0&single=true&output=csv"
@@ -134,20 +135,30 @@ rice_subset <- rice_atmospheric[1:40, c("AirTempF", "BP_HG")]
 head(rice_subset)
 
 # Histograms for both variables
-par(mfrow = c(1, 2))  # Set up a 1x2 plot grid
-hist(rice_subset$AirTempF, main = "Histogram of AirTempF", xlab = "Air Temperature (F)", col = "lightblue", border = "black")
-hist(rice_subset$BP_HG, main = "Histogram of BP_HG", xlab = "Barometric Pressure (mm Hg)", col = "lightgreen", border = "black")
 
-# Set up a 1x2 plot grid again for Q-Q plots
-par(mfrow = c(1, 2))
+h1 <- ggplot(rice_subset, aes(x = AirTempF)) + 
+  geom_histogram(binwidth = 0.15, fill = "lightblue", color = "black") +
+  ggtitle("Histogram of Air Temperature")
+
+h2 <- ggplot(rice_subset, aes(x = BP_HG)) + 
+  geom_histogram(binwidth = 0.01, fill = "lightgreen", color = "black") +
+  ggtitle("Histogram of Barometric Pressure")
 
 # Q-Q plot for AirTempF
-qqnorm(rice_subset$AirTempF, main = "Q-Q Plot of AirTempF")
-qqline(rice_subset$AirTempF, col = "red")
+qq1 <- ggplot(rice_subset, aes(sample = AirTempF)) + 
+  stat_qq() + 
+  stat_qq_line(color = "red") +
+  ggtitle("Q-Q Plot of Air Temperature") +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles")
 
 # Q-Q plot for BP_HG
-qqnorm(rice_subset$BP_HG, main = "Q-Q Plot of BP_HG")
-qqline(rice_subset$BP_HG, col = "red")
+qq2 <- ggplot(rice_subset, aes(sample = BP_HG)) + 
+  stat_qq() + 
+  stat_qq_line(color = "red") +
+  ggtitle("Q-Q Plot of Barometric Pressure") +
+  labs(x = "Theoretical Quantiles", y = "Sample Quantiles")
+
+gridExtra::grid.arrange(h1, h2, qq1, qq2, ncol = 2)
 
 # Perform the Shapiro-Wilk normality test for both variables
 shapiro_airtemp <- shapiro.test(rice_subset$AirTempF)
