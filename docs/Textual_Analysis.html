@@ -651,24 +651,23 @@ Caused by warning:
 </div>
 </div>
 </div>
-<pre><code></code></pre>
 <p>Word Cloud based on word frequency in course titles</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Tokenize the words in the course titles</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>word_freq_2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, title) <span class="sc">%&gt;%</span>  <span class="co"># Break titles into individual words</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)        <span class="co"># Count each unique word's occurrence</span></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Remove common stop words</span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>word_freq_2 <span class="ot">&lt;-</span> word_freq_2 <span class="sc">%&gt;%</span></span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>)</span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Generate the word cloud</span></span>
-<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(word_freq_2, <span class="at">size =</span> <span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Tokenize the words in the course titles</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>word_freq_2 <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, title) <span class="sc">%&gt;%</span>  <span class="co"># Break titles into individual words</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)        <span class="co"># Count each unique word's occurrence</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Remove common stop words</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>word_freq_2 <span class="ot">&lt;-</span> word_freq_2 <span class="sc">%&gt;%</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">"word"</span>)</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Generate the word cloud</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="fu">wordcloud2</span>(word_freq_2, <span class="at">size =</span> <span class="fl">1.0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="wordcloud2 html-widget html-fill-item" id="htmlwidget-e31002f767c3c5eff9d0" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-e31002f767c3c5eff9d0">{"x":{"word":["environmental","studies","geology","introduction","laboratory","management","meteorology","outdoor","topics","climatology","data","environment","leadership","oceanography","physical","science","special","wilderness","applications","basin","building","capstone","cartography","conservation","earth","electronic","energy","event","experience","facilitation","ii","independent","internship","invasive","james","literacy","nature","paths","policy","politics","pollution","portfolios","practice","programming","research","responder","river","seminar","societies","species","study","sustainable","system","team","visualization","water","writing"],"freq":[14,8,4,4,3,3,3,3,3,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-dark","minSize":0,"weightFactor":12.85714285714286,"backgroundColor":"white","gridSize":0,"minRotation":-0.7853981633974483,"maxRotation":0.7853981633974483,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<div class="wordcloud2 html-widget html-fill-item" id="htmlwidget-49d0f9f7e1435fc7aad9" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-49d0f9f7e1435fc7aad9">{"x":{"word":["environmental","studies","geology","introduction","laboratory","management","meteorology","outdoor","topics","climatology","data","environment","leadership","oceanography","physical","science","special","wilderness","applications","basin","building","capstone","cartography","conservation","earth","electronic","energy","event","experience","facilitation","ii","independent","internship","invasive","james","literacy","nature","paths","policy","politics","pollution","portfolios","practice","programming","research","responder","river","seminar","societies","species","study","sustainable","system","team","visualization","water","writing"],"freq":[14,8,4,4,3,3,3,3,3,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-dark","minSize":0,"weightFactor":12.85714285714286,"backgroundColor":"white","gridSize":0,"minRotation":-0.7853981633974483,"maxRotation":0.7853981633974483,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 </div>
 </div>
 </section>

@@ -168,9 +168,6 @@ ggplot(level_counts, aes(x = level, y = count, fill = level)) +
   expand_limits(y = max(level_counts$count) * 1.1)
 ```
 
-```{}
-```
-
 Word Cloud based on word frequency in course titles
 
 ```{r}
