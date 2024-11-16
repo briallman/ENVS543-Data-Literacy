@@ -4,6 +4,7 @@ author: "Briana Allman"
 date: "11/15/2024"
 format: html
 editor: visual
+theme: flatly
 abstract: "This analysis examines environmental data collected from the Rice Center, focusing on atmospheric variables such as air temperature, barometric pressure, and related measurements. Initial steps involved data cleaning, including conversion of units and removal of missing values, followed by exploratory analyses using correlation metrics and visualization tools like ggpairs() plots. The strongest correlation, observed between air temperature and barometric pressure (r = − 0.71), was analyzed using confidence intervals and hypothesis testing. Normality of the first 40 observations of air temperature and barometric pressure was evaluated using Q-Q plots and the Shapiro-Wilk test, revealing that air temperature approximates normality (p = 0.14), while barometric pressure does not (p = 0.001). A permutation test was conducted to assess the null hypothesis of no correlation, generating a distribution of correlation values. Finally, the Q-Q plot for barometric pressure displayed discrete, leveled patterns, reflecting the gradual and instrument-limited nature of environmental data. Together, these analyses provide insights into the relationships and statistical properties of atmospheric conditions at the Rice Center."
 ---
 
