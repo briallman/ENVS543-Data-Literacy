@@ -25,3 +25,6 @@ My Class Repository: Data Literacy (ENVS 543)
 - [Textual Analysis](https://briallman.github.io/ENVS543-Data-Literacy/Textual_Analysis.html)
 
 - [Correlation Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Correlation_Assignment.html)
+
+- [Regression Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Regression_Assignment.html)
+
