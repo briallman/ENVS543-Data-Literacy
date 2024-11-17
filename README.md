@@ -28,3 +28,4 @@ My Class Repository: Data Literacy (ENVS 543)
 
 - [Regression Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Regression_Activity.html)
 
+- [Analysis of Variance Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Variance.html)
