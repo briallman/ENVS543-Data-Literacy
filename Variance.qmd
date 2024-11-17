@@ -188,7 +188,7 @@ The underlying linear model.
 
 $y_{ij} = \mu + \tau_{gender, i} + \epsilon_j$
 
-Independent of the diet, test the null hypothesis $H_O:$ *There is no difference in weight loss between genders* (e.g., \$\tau*{gender-0} =* \tau{gender-2} = 0.0 \$). Is there evidence for one gender being significantly different than another? How much of the variation is explained (another $R^2$ by gender)?
+Independent of the diet, test the null hypothesis $H_O:$ *There is no difference in weight loss between genders* (e.g., \$\tau*{gender-0} =\* \tau{gender-2} = 0.0 \$). Is there evidence for one gender being significantly different than another? How much of the variation is explained (another $R^2$ by gender)?
 
 ```{r}
 # partition effects
@@ -197,13 +197,24 @@ fit.gender <- aov(weight6weeks ~ factor(gender), data = diet_data)
 
 # Get the summary of the ANOVA
 summary(fit.gender)
+
+#R^2
+
+tidy_gender <- tidy( fit.gender )
+
+tidy_gender
+
+
+r2_Gender <- tidy_gender$sumsq[1] / sum( tidy_gender$sumsq )
+
+r2_Gender
 ```
 
 How do you interpret these results thus far?
 
 ***Based on the results of the One-Way ANOVA test for gender, I found strong evidence that gender significantly influences weight loss. The F-value for gender was 84.45, and the corresponding p-value was extremely small (7.29e-14), which is much less than the commonly used significance level of 0.05. This means that I can confidently reject the null hypothesis that there is no difference in weight loss between genders. In other words, the data provide strong evidence that males and females experience different amounts of weight loss.***
 
-***Additionally, I calculated the R² value, which tells me how much of the variation in weight loss can be explained by gender. From the ANOVA results, I found that 53.2% of the variation in weight loss is explained by gender. This suggests that gender plays a relatively significant role in weight loss outcomes in this dataset.***
+***Additionally, I calculated the R² value, which tells me how much of the variation in weight loss can be explained by gender. From the ANOVA results, I found that 53.3% of the variation in weight loss is explained by gender. This suggests that gender plays a relatively significant role in weight loss outcomes in this dataset.***
 
 ***Overall, these results suggest that gender is an important factor in determining weight loss, and more than half of the variability in weight loss can be attributed to differences between males and females. This is a noteworthy finding, as it underscores the potential importance of considering gender when studying weight loss interventions or outcomes.***
 
@@ -251,14 +262,6 @@ What is the $R^2$ for this model?
 
 ```{r}
 # best model variance explained
-
-tidy_gender <- tidy( fit.gender )
-
-tidy_gender
-
-
-r2_Gender <- tidy_gender$sumsq[1] / sum( tidy_gender$sumsq )
-
 r2_Gender
 ```
 
