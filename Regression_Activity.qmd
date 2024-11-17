@@ -1,0 +1,280 @@
+---
+title: "Regression Homework Activity"
+author: "Briana Allman"
+date: "11/17/2024"
+format: 
+  html:
+    toc: false
+abstract: ""
+---
+
+```{r setup, include=FALSE}
+
+library(tidyverse)
+library(nycflights13)
+```
+
+# Introduction
+
+Regression analysis is a fundamental component of data analysis and statistical inference. Through this activity, I aim to:
+
+1.  Conceptually understand and describe the process of least squares regression.
+
+2.  Perform a linear regression with one or more predictor variables using the `lm()` function.
+
+3.  Evaluate the model's fit by examining residuals and fitted values.
+
+4.  Use AIC (Akaike Information Criterion) to compare and select the best model among candidate models.
+
+To achieve these objectives, I’ll analyze flight data from JFK for *ExpressJet Airlines* and local weather conditions, focusing on how various weather factors impact departure delays.
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+***Dr. Dyer's Code:***
+
+Since regression analysis is such a fundamental component of inferences, I thought it would be a good idea to try to work through a few more examples to give you some more practice.
+
+For this we will use some data on flights into and out of Newark (EWR), JFK, and La Guardia airports in NYC metropolitan area.
+
+```{r}
+summary(flights)
+```
+
+We also have some data related to local weather conditions.
+
+```{r}
+summary(weather)
+```
+
+I'm going to make a synthetic data set consisting of flights out of JFK for the *ExpressJet* airlines. Since the weather data is on the hour, I also make a synthetic varible `Month.Day.Hour` so that I can join the weather data to this one.
+
+```{r}
+
+flights %>%
+  filter( origin == "JFK", carrier == "EV") %>%
+  mutate( DateTime = paste(month,day,hour, sep=".")) %>%
+  select( DateTime, 
+          `Departure Delay` = dep_delay,
+          `Departure Time` = sched_dep_time) %>%
+  droplevels() -> df.jfk
+
+summary( df.jfk )
+```
+
+Now I'll do the same with the weather data.
+
+```{r}
+weather %>%
+  filter( origin == "JFK") %>% 
+  mutate( DateTime = paste(month,day,hour, sep=".")) %>%
+  select( -origin, -year, -month, -day, -hour, -time_hour ) -> df.weather 
+
+summary( df.weather )
+```
+
+Now, I'm going to `merge` these two `data.frame` objects using the common `key` I made `DateTime`.
+
+```{r}
+merge( df.jfk, df.weather, by="DateTime" ) %>%
+  select( -DateTime ) -> df 
+
+summary( df )
+```
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+# Activity
+
+***What features of this data set may impact the departure delay for flights coming out of JFK on ExpressJet Airlines?***
+
+To understand the potential factors that affect departure delay, I'll visualize the relationships between departure delays and various weather factors.
+
+### **Exploring Factors Affecting Departure Delay**
+
+```{r}
+
+# Visualizing departure delays by temperature
+
+ggplot(df, aes(x = temp, y = `Departure Delay`)) +
+  geom_point(color = "steelblue", alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", color = "darkred", fill = "pink", linetype = "solid") +
+  labs(
+    title = "Impact of Temperature on Departure Delays",
+    x = "Temperature (°F)",
+    y = "Departure Delay (minutes)"
+  ) +
+  theme_minimal(base_size = 15) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "black")
+  )
+
+```
+
+### Visualizing the Impact of Wind Speed
+
+```{r}
+
+# Wind Speed vs. Departure Delay
+
+ggplot(df, aes(x = wind_speed, y = `Departure Delay`, color = temp)) +
+  geom_point(alpha = 0.7, size = 2) +
+  geom_smooth(method = "lm", color = "black", linetype = "solid", size = 1.5) +
+  scale_color_viridis_c(option = "plasma", name = "Temp (°F)") +
+  labs(
+    title = "Impact of Wind Speed on Departure Delays",
+    x = "Wind Speed (mph)",
+    y = "Departure Delay (minutes)"
+  ) +
+  theme_classic(base_size = 15) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    legend.title = element_text(face = "bold"),
+    legend.text = element_text(size = 12)
+  )
+```
+
+### Visualizing Precipitation Effects
+
+```{r}
+
+# Precipitation vs. Departure Delay
+
+ggplot(df, aes(x = precip, y = `Departure Delay`)) +
+  geom_point(color = "dodgerblue", alpha = 0.6, size = 2) +
+  geom_smooth(method = "lm", color = "darkgreen", fill = "lightgreen") +
+  labs(
+    title = "Impact of Precipitation on Departure Delays",
+    x = "Precipitation (inches)",
+    y = "Departure Delay (minutes)"
+  ) +
+  annotate("text", x = 0.35, y = 300, label = "Heavy Rain\nHigher Delays", color = "red", size = 4, fontface = "italic") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
+```
+
+# Regression Analysis
+
+## Step 1: Performing a Linear Regression
+
+Using the `lm()` function, I fit a linear model with temperature, wind speed, and precipitation as predictors.
+
+As I proceed with the linear regression, the least squares method is applied internally by the `lm()` function. This method works by finding the values for the intercept and coefficients that minimize the sum of squared differences between the observed values (in this case, the `Departure Delay`) and the predicted values generated by the model. Essentially, the goal is to minimize the residuals, or the differences between the actual data points and the model's predictions. The beauty of the `lm()` function is that it handles this process automatically, so no additional steps are necessary to implement the least squares regression.
+
+```{r}
+
+model <- lm(`Departure Delay` ~ temp + wind_speed + precip, data = df)
+
+summary(model)
+```
+
+### **Model Overview**
+
+The formula is:\
+`Departure Delay ~ temp + wind_speed + precip`,\
+where:
+
+-   `Departure Delay` is the dependent variable,
+
+-   `temp`, `wind_speed`, and `precip` are the predictor variables.
+
+### **Key Findings from the Output:**
+
+-   **Residuals**:
+    The residuals (the differences between the observed and predicted values) range from -97.39 to 520.57, with a median residual of -19.00. The residuals suggest some large outliers in the data, which could potentially affect the model's performance.
+
+-   **Coefficients**:
+
+    -   **Intercept**: The intercept is 3.095, but it is not statistically significant (p-value = 0.6421), meaning it does not significantly differ from zero.
+
+    -   **Temperature (temp)**: The coefficient for temperature is 0.12134, indicating that, on average, for every one-degree increase in temperature, the departure delay increases by about 0.12 minutes. However, this variable is not statistically significant (p-value = 0.1868), meaning it doesn't have a strong effect on departure delays in this model.
+
+    -   **Wind Speed (wind_speed)**: The coefficient for wind speed is 0.66858, indicating that for every one mph increase in wind speed, the departure delay increases by about 0.67 minutes. This variable is statistically significant (p-value = 0.0151), meaning there is a meaningful relationship between wind speed and departure delays.
+
+    -   **Precipitation (precip)**: The coefficient for precipitation is 288.73873, suggesting that for each inch of precipitation, the departure delay increases by approximately 289 minutes. This variable is highly statistically significant (p-value = 7.33e-05), indicating a very strong relationship between precipitation and departure delays.
+
+-   **Model Fit**:
+
+    -   **Residual Standard Error**: The residual standard error is 55.67, which represents the average size of the residuals. A large residual error suggests that the model's predictions are, on average, off by 55.67 minutes.
+
+    -   **R-squared**: The R-squared value is 0.0175, which is quite low. This indicates that only 1.75% of the variance in departure delays is explained by the predictors (`temp`, `wind_speed`, and `precip`). This suggests that the model may not be capturing much of the variance in the data, and there might be other factors influencing departure delays that are not included in the model.
+
+    -   **Adjusted R-squared**: The adjusted R-squared is 0.01526, which also supports that the model is not a very strong fit.
+
+    -   **F-statistic**: The F-statistic is 7.83 with a p-value of 3.511e-05, which is statistically significant. This indicates that, at least collectively, the predictors (`temp`, `wind_speed`, and `precip`) have some predictive power regarding departure delays.
+
+### **Interpretation:**
+
+-   **Wind speed** and **precipitation** have a statistically significant impact on departure delays, with wind speed increasing delays by about 0.67 minutes per mph, and precipitation increasing delays by about 289 minutes per inch of rain.
+
+-   **Temperature** does not seem to have a significant effect on departure delays in this model.
+
+-   Despite some significant predictors, the model has low explanatory power (low R-squared), suggesting that there are likely other variables influencing departure delays that are not included in the model.
+
+## Step 2: Evaluating Model Fit
+
+```{r}
+
+plot(model, which = 1)  # Residuals vs Fitted
+
+plot(model, which = 2)  # Q-Q plot
+```
+
+1.)
+
+When I look at this Residuals vs Fitted plot, I’m trying to figure out how well my linear regression model is performing in predicting departure delays based on temperature, wind speed, and precipitation. The residuals, or errors, are plotted against the predicted values from my model.
+
+I notice that most of the residuals are clustered around the lower predicted values, which is good—it means that, for the most part, my predictions are close to the actual values. However, the trend line tells me there might be some systematic deviations, meaning my model might not be perfectly capturing the relationships.
+
+Also, I see a few outliers—specific points where my model's predictions were way off. These outliers could be due to unusual cases or errors in the data, or they might indicate that I need to refine my model.
+
+Overall, this plot is really useful because it shows me where my model is doing well and where it might need some improvement.
+
+2.)
+
+"When I look at this QQ plot of the residuals versus the theoretical quantiles, it helps me understand if my regression model's residuals are normally distributed. Most of the points fall along the reference line, which is a good sign that the residuals are generally following a normal distribution. However, I do see some deviations, especially at the ends of the plot. These outliers (like 11170, 3820, 9380) suggest that some residuals aren't fitting the normal distribution well, indicating potential issues.
+
+Overall, this tells me that my model is performing fairly well, but there might be some unusual data points or heavier tails than expected. This means I might need to investigate further, possibly by looking into robust regression techniques or considering transformations for my variables to improve the fit.
+
+## Step 3: Model Selection Using AIC
+
+Finally, I compare models using AIC to balance model complexity and fit.
+
+```{r}
+
+model1 <- lm(`Departure Delay` ~ temp + wind_speed, data = df)
+
+model2 <- lm(`Departure Delay` ~ temp + precip, data = df)
+
+
+AIC(model, model1, model2)
+```
+
+Explanation of the results:
+
+-   **Model** is the most complex, using three predictors: **temp**, **wind_speed**, and **precip**.
+
+-   **Model1** uses two predictors: **temp** and **wind_speed**.
+
+-   **Model2** uses two predictors as well: **temp** and **precip**.
+
+From the AIC results:
+
+-   **Model** (with all three predictors) has an AIC of **14395.98**.
+
+-   **Model1** (temp and wind_speed) has an AIC of **14409.76**.
+
+-   **Model2** (temp and precip) has an AIC of **14420.13**.
+
+### Interpretation:
+
+The **AIC values** suggest that **Model** (which includes all three predictors) is the best fitting model, as it has the lowest AIC value (14395.98). The **AIC** penalizes models for including more predictors, so even though **Model** includes an extra predictor (precip), it still results in a lower AIC than the other two models. This indicates that the inclusion of **precip** in the model improves the fit enough to outweigh the penalty for adding an extra variable.
+
+Between **Model1** and **Model2**, **Model1** (temp and wind_speed) has a slightly lower AIC than **Model2** (temp and precip), meaning that **wind_speed** provides a slightly better explanatory power for **Departure Delay** than **precip** does, in this case.
+
+In conclusion, I would choose **Model** as the best model based on AIC, as it offers the best balance between fit and complexity. However, **Model1** is a good alternative if simplifying the model is important, as it performs better than **Model2** according to AIC.
+
+# Reflection
+
+Through this activity, I explored the principles of regression analysis, applied linear modeling to a real-world dataset, and critically evaluated model performance. This process deepened my understanding of regression and prepared me for more advanced modeling challenges.
