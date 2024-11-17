@@ -26,5 +26,5 @@ My Class Repository: Data Literacy (ENVS 543)
 
 - [Correlation Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Correlation_Assignment.html)
 
-- [Regression Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Regression_Assignment.html)
+- [Regression Assignment](https://briallman.github.io/ENVS543-Data-Literacy/Regression_Activity.html)
 
