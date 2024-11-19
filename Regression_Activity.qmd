@@ -181,8 +181,7 @@ where:
 
 ### **Key Findings from the Output:**
 
--   **Residuals**:
-    The residuals (the differences between the observed and predicted values) range from -97.39 to 520.57, with a median residual of -19.00. The residuals suggest some large outliers in the data, which could potentially affect the model's performance.
+-   **Residuals**: The residuals (the differences between the observed and predicted values) range from -97.39 to 520.57, with a median residual of -19.00. The residuals suggest some large outliers in the data, which could potentially affect the model's performance.
 
 -   **Coefficients**:
 
