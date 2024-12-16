@@ -13,31 +13,96 @@ Additionally, the study will assess if the inclusion of morphological traits, su
 
 ## Methods:
 
-#### **Data Overview**
+#### Data Overview 
 
-This study uses four datasets to examine the relationship between habitat suitability and sex ratio divergence in the Sonora Desert bark beetle (*Araptus attenuatus*), with a focus on current and historical climate conditions.
+The analysis utilizes four datasets to explore the relationship between habitat suitability and sex ratio divergence in *Araptus attenuatus* across different climate conditions, both current and historical.
 
-##### **1. Arapat_Locations.csv**
+The first dataset, *Arapat_Locations.csv*, contains spatial coordinates (latitude and longitude) for 31 sampling sites within the Sonora Desert. These sites serve as the foundation for examining beetle distribution and variations in sex ratios in relation to local habitat conditions, which are influenced by environmental factors.
 
-This dataset contains the spatial coordinates (latitude and longitude) for 31 sampling sites within the Sonora Desert. These locations serve as the basis for analyzing beetle distribution and sex ratio variations across different habitat conditions, which are influenced by the local environment.
+The second dataset, *Arapat_Samples.csv*, includes 3100 beetle observations across the 31 sites. Each observation is annotated with sex, phenotypic traits (Phenotype A and Phenotype B), and plant associations, supporting the investigation into potential correlations between sex ratios, habitat suitability, and phenotypic variation.
 
-##### **2. Arapat_Samples.csv**
+The third dataset, *Suitability_now.tif*, is a raster representing current habitat suitability for *Araptus attenuatus*, derived from niche modeling based on biological and climatic data. This dataset provides a measure of current habitat conditions at the sampling sites, allowing for the analysis of the relationship between habitat suitability and beetle sex ratios.
 
-The Arapat_Samples.csv dataset includes 3100 beetle observations across the 31 sites, detailing sex, phenotypic traits (Phenotype A and Phenotype B), and plant associations. It supports the analysis of sex ratio differences and their potential correlation with habitat suitability and phenotypic traits.
+The fourth dataset, *Suitability_lgm.asc*, is a raster estimating habitat suitability during the Last Glacial Maximum (\~20,000 years ago), created through climate reconstruction methods. By comparing this historical dataset with the current suitability data, the analysis aims to assess how past climate conditions may have shaped beetle distribution and influenced sex ratio patterns.
 
-##### **3. Suitability_now.tif**
-
-This raster dataset represents the current habitat suitability for *Araptus attenuatus*, derived from niche modeling based on biological and climatic factors. It provides a measure of habitat conditions across the sampling sites, enabling us to investigate the relationship between current habitat suitability and beetle sex ratio.
-
-##### **4. Suitability_lgm.asc**
-
-This raster dataset estimates habitat suitability during the Last Glacial Maximum (\~20,000 years ago), using climate reconstruction methods. It allows for comparison with the current suitability data to explore how past climate conditions may have influenced beetle distribution and sex ratio patterns.
-
-#### **Dataset Integration**
-
-Together, these datasets allow for a comprehensive analysis of how changing habitat suitability, both currently and historically, influences the sex ratio of *Araptus attenuatus*. The combination of spatial, population, and environmental data helps to reveal trends in sex ratio divergence linked to ecological and climatic factors.
+Together, these datasets provide a comprehensive framework for analyzing the impact of changing habitat suitability—both current and historical—on the sex ratio divergence of *Araptus attenuatus*. The integration of spatial, population, and environmental data facilitates the identification of trends in sex ratio variation linked to ecological and climatic factors.
 
 ------------------------------------------------------------------------
+
+**1. Sex Ratio Analysis Across Populations**
+
+*Question: Do sampled populations of the beetle have different sex ratios? You can consider the plant to be replicated within each site.*
+
+\
+The sex ratio for *Araptus attenuatus* across different sampling sites was calculated by grouping the data by site and summarizing the number of males and females within each group. The total number of individuals per site was also computed by summing the male and female counts. Ratios for males and females were then determined by dividing the respective counts by the total number of individuals at each site. The results were compiled into a table, which includes the site name, counts of males, females, total individuals, and the calculated male and female ratios. The table was formatted for clarity using the `kable` function, with customized styling for readability, including bolded site names and color-coded columns for the male and female ratios.
+
+------------------------------------------------------------------------
+
+**2. Identifying Sites with Deviations from Equal Sex Ratios**
+
+*Question: Which sites have sex ratios that deviate from equal proportions of males and females at the site?*
+
+\
+A chi-square test was applied to assess whether the sex ratio in each sampling site deviated significantly from the expected 1:1 male-to-female ratio. The test was performed by comparing the observed counts of males and females at each site to the expected counts (assuming a 50% male and 50% female ratio). The p-values from the chi-square tests were calculated and added as a new column in the dataset. Sites with significant deviations, identified by a p-value less than 0.05, were filtered for further analysis. The results were then merged with geographic location data for each site. The table presenting these findings includes the site name, counts of males, females, total individuals, male and female ratios, the calculated p-value, and the corresponding longitude and latitude of each site. The table was formatted using the `kable` function, with specific styling to highlight the p-values in red and bold the site names for emphasis.
+
+------------------------------------------------------------------------
+
+**3. Functional Relationship Between Habitat Suitability and Sex Ratio**
+
+*Question: Is there a functional relationship between the habitat suitability at the sampling locations and the sex ratio? Since all of our suitability measurements are taken from raster data with a cell size of 1.0 km^~2~^ (e.g., all plants are in the same grid cell), collapse the sex ratio estimates to a single value per site.*
+
+\
+To explore the relationship between sex ratios and habitat suitability, the sex ratio of males and females was summarized for each sampling site. The dataset was grouped by site, and the number of males and females, as well as the male and female ratios, were calculated. Suitability values for each site were then extracted from the `suitability_now` raster dataset based on the geographic coordinates (longitude and latitude) of the sampling sites. These suitability values were averaged when multiple values were returned for a single site. Sites with missing suitability data were excluded from further analysis.
+
+The dataset, now containing sex ratio data and habitat suitability values for each site, was used to create scatter plots to visualize the relationship between habitat suitability and the male or female sex ratio. Linear regression models were fitted to the data for both male and female ratios as a function of habitat suitability. These regression models were summarized and presented in tables. The plots were arranged to show the male and female sex ratio trends in relation to habitat suitability, and the regression summaries for both male and female sex ratios were displayed in separate tables.
+
+------------------------------------------------------------------------
+
+**4. Effect of Phenotypic Traits on Functional Relationship**
+
+*Question: Does the inclusion of `Phenotype A`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} and `Phenotype B`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} improve the functional relationship over habitat suitability alone?*
+
+\
+To examine the relationship between habitat suitability, phenotypic traits, and sex ratios, a series of linear regression models were constructed. First, the datasets were prepared by converting the `Site` column to a character format in both `site_data` and `samples_df` to ensure compatibility. The `PhenotypeA` and `PhenotypeB` variables were selected from the `samples_df` dataset, and this was merged with the `site_data` dataset based on the `Site` column.
+
+Two sets of models were fitted for both male and female sex ratios. Model 1 examined the effect of habitat suitability (`suitability_now`) on the sex ratio, while Model 2 incorporated both habitat suitability and the phenotypic traits (`PhenotypeA` and `PhenotypeB`). The summaries of these models were extracted using the `tidy()` function, providing estimates, standard errors, and significance levels. Additionally, ANOVA tests were conducted to compare Model 1 and Model 2 for both male and female sex ratios to determine the influence of the phenotypic traits over and above habitat suitability.
+
+The results of the regression models and ANOVA tests were displayed in tables, summarizing the impact of habitat suitability and phenotypes on the sex ratios at each site. These tables provided insight into the relative contributions of these factors to sex ratio variation in the studied populations.
+
+------------------------------------------------------------------------
+
+**5. Change in Habitat Suitability from LGM to Present**
+
+*Question: Using the data from the last glacial maximum and the sampling locations, has the suitability changed at each location (e.g., was it as suitable 20,000 years ago as today)?*
+
+\
+To assess changes in habitat suitability between the present and the last glacial maximum (LGM), suitability values were extracted for each sampling location from the `suitability_now` and `suitability_lgm` rasters using the `extract()` function. The resulting values were stored in the `locations` dataset, and the difference between present suitability and LGM suitability was calculated as the `Suitability_change`. This data was then compiled into a new table, which was presented with a caption and formatted for clarity.
+
+A paired t-test was conducted to determine whether the difference in suitability between the present and the LGM was statistically significant. The results of the t-test, including the t-statistic, degrees of freedom, p-value, and confidence intervals, were summarized in a table. A box plot was also created to visually represent the distribution of suitability changes across the 31 sampling sites, highlighting any potential outliers. The box plot provided further insight into the variability of suitability changes over time.
+
+------------------------------------------------------------------------
+
+**6. Predicting Historical Sex Ratios**
+
+*Question: Predict the distribution of the historical sex ratio by applying the model you developed for current conditions to the suitability estimated from the last glacial maximum. Across the landscape, do you detect any trends that may be due to the differences in climate, as measured by our estimates of habitat suitability?*
+
+In this analysis, several steps will be undertaken to examine sex ratio divergence among *Araptus attenuatus* populations in relation to habitat suitability.
+
+First, the coordinates (longitude and latitude) of each site will be extracted from the `locations` dataset. These coordinates will be used to extract habitat suitability values from the `suitability_now` and `suitability_lgm` raster datasets for both current and historical conditions.
+
+Next, the sex ratios for each site will be calculated by aggregating the data from the `samples` dataset. For each site, the number of males and females will be summed, and the corresponding habitat suitability value for each site will be retrieved by matching the site names to the suitability data. The sex ratio will be computed as the proportion of males to the total number of individuals at each site. Sites with missing suitability data or a total of zero individuals will be excluded from further analysis.
+
+To explore the relationship between sex ratio and habitat suitability, a generalized linear model (GLM) with a binomial family will be fitted, where the sex ratio will be modeled as a function of the current habitat suitability (`suitability_now`). This model will be used to predict the sex ratio for each site under historical conditions using the `suitability_lgm` values. The predicted sex ratios will be transformed using the logistic function to obtain estimates of sex ratios under the historical habitat conditions.
+
+For visualization, scatter plots will be created to show the current and historical sex ratios against habitat suitability. Linear regression lines will be included on these plots to illustrate any trends. Both plots will be displayed together for comparison. Additionally, a summary table of the sex ratios for each site across the two time periods will be created, highlighting the differences in sex ratios between the current and historical periods.
+
+Finally, habitat suitability maps will be generated by converting the raster data for both current and historical suitability into data frames using the `rasterToPoints` function. These data frames will be used to create spatial maps of habitat suitability across the study area. The maps will be visualized using `ggplot2`, with color gradients representing the variation in habitat suitability.
+
+By following these methods, the analysis will assess how changes in habitat suitability have influenced sex ratio divergence among *Araptus attenuatus* populations.
+
+## Results:
+
+**Do sampled populations of the beetle have different sex ratios?**
 
 ```{r setup, include=FALSE}
 
@@ -77,15 +142,6 @@ crs_now <- crs(suitability_now)
 crs_lgm <- crs(suitability_lgm)
 ```
 
-------------------------------------------------------------------------
-
-**1. Sex Ratio Analysis Across Populations**
-
-*Question: Do sampled populations of the beetle have different sex ratios? You can consider the plant to be replicated within each site.*
-
-\
-The sex ratio for *Araptus attenuatus* across different sampling sites was calculated by grouping the data by site and summarizing the number of males and females within each group. The total number of individuals per site was also computed by summing the male and female counts. Ratios for males and females were then determined by dividing the respective counts by the total number of individuals at each site. The results were compiled into a table, which includes the site name, counts of males, females, total individuals, and the calculated male and female ratios. The table was formatted for clarity using the `kable` function, with customized styling for readability, including bolded site names and color-coded columns for the male and female ratios.
-
 ```{r chunk2, echo=FALSE}
 
 # Ratio
@@ -116,16 +172,18 @@ sex_ratio %>%
   column_spec(1, bold = TRUE) %>% 
   column_spec(5, color = "blue") %>% 
   column_spec(6, color = "red")
+
 ```
+
+The results of this analysis indicate that the sampled populations of the beetle exhibit different sex ratios across the various sites. For each site, the number of male and female beetles was recorded, and the sex ratio was calculated as the proportion of males to total individuals. The sex ratios varied significantly between sites, with male proportions ranging from 0.40 to 0.69 (40% to 69% male), and female proportions ranging from 0.31 to 0.60 (31% to 60% female).
+
+As shown in `Table 1: Sex Ratios Across Sampling Sites`, Site 1 had a male proportion of 0.46 and a female proportion of 0.54. In contrast, Site 10 exhibited a higher male proportion of 0.60, with the female proportion being 0.40. Other sites, such as Site 11 and Site 12, displayed more balanced ratios, with male proportions of 0.56 and 0.54, respectively. Notably, Site 14 had the lowest male proportion of 0.40, with females comprising 60% of the population. Conversely, Site 18 demonstrated the highest male proportion of 0.69, with females accounting for only 31% of the population.
+
+These findings, summarized in Table 1, suggest that there is notable variation in the sex ratios of beetle populations across the sampled sites. Given that the plant is considered to be replicated within each site, the variation in sex ratios may be influenced by factors at the site level, such as environmental conditions or other ecological variables. The observed differences in sex ratios across sites indicate that the populations are not uniform, and further investigation is required to explore the potential causes behind these variations.
 
 ------------------------------------------------------------------------
 
-**2. Identifying Sites with Deviations from Equal Sex Ratios**
-
-*Question: Which sites have sex ratios that deviate from equal proportions of males and females at the site?*
-
-\
-A chi-square test was applied to assess whether the sex ratio in each sampling site deviated significantly from the expected 1:1 male-to-female ratio. The test was performed by comparing the observed counts of males and females at each site to the expected counts (assuming a 50% male and 50% female ratio). The p-values from the chi-square tests were calculated and added as a new column in the dataset. Sites with significant deviations, identified by a p-value less than 0.05, were filtered for further analysis. The results were then merged with geographic location data for each site. The table presenting these findings includes the site name, counts of males, females, total individuals, male and female ratios, the calculated p-value, and the corresponding longitude and latitude of each site. The table was formatted using the `kable` function, with specific styling to highlight the p-values in red and bold the site names for emphasis.
+**Which sites have sex ratios that deviate from equal proportions of males and females at the site?**
 
 ```{r chunk3, echo=FALSE}
 
@@ -158,18 +216,18 @@ deviant_sites_with_locations %>%
   ) %>%
   column_spec(1, bold = TRUE) %>%
   column_spec(7, color = "red")
+
 ```
+
+This analysis aimed to determine whether the sampled populations of the beetle exhibited different sex ratios across various sites. The results indicate that several sites demonstrated significant deviations from the expected 50:50 male-to-female ratio. As shown in `Table 2: Sites with Significant Deviations in Sex Ratio (p < 0.05)`, Sites 10, 14, 17, 18, 20, 21, 29, and 9 exhibited p-values less than 0.05, indicating that the observed sex ratios at these sites were significantly different from equal proportions.
+
+For example, Site 18 had a notably higher male ratio of 0.69, while Site 9 exhibited a higher female ratio of 0.63. These deviations suggest that, at these sites, factors influencing sex determination or survival may be skewing the sex ratio. Some sites, such as Site 10 and Site 14, showed more moderate imbalances, with a male ratio of 0.60 at Site 10 and 0.40 at Site 14. However, the statistical evidence supports the conclusion that sex ratios at these sites are not random.
+
+The findings provide compelling evidence that populations across the surveyed sites do not exhibit equal sex ratios. The results summarized in Table 2 highlight the need for further investigation into the factors contributing to these differences, as they may provide insights into underlying ecological, environmental, or genetic processes influencing beetle population dynamics. Understanding the causes of such deviations is crucial for interpreting population trends and can inform conservation and management strategies, particularly in light of environmental changes that may further impact sex ratio distributions.
 
 ------------------------------------------------------------------------
 
-**3. Functional Relationship Between Habitat Suitability and Sex Ratio**
-
-*Question: Is there a functional relationship between the habitat suitability at the sampling locations and the sex ratio? Since all of our suitability measurements are taken from raster data with a cell size of 1.0 km^~2~^ (e.g., all plants are in the same grid cell), collapse the sex ratio estimates to a single value per site.*
-
-\
-To explore the relationship between sex ratios and habitat suitability, the sex ratio of males and females was summarized for each sampling site. The dataset was grouped by site, and the number of males and females, as well as the male and female ratios, were calculated. Suitability values for each site were then extracted from the `suitability_now` raster dataset based on the geographic coordinates (longitude and latitude) of the sampling sites. These suitability values were averaged when multiple values were returned for a single site. Sites with missing suitability data were excluded from further analysis.
-
-The dataset, now containing sex ratio data and habitat suitability values for each site, was used to create scatter plots to visualize the relationship between habitat suitability and the male or female sex ratio. Linear regression models were fitted to the data for both male and female ratios as a function of habitat suitability. These regression models were summarized and presented in tables. The plots were arranged to show the male and female sex ratio trends in relation to habitat suitability, and the regression summaries for both male and female sex ratios were displayed in separate tables.
+**Is there a functional relationship between the *habitat suitability* at the sampling locations and the sex ratio?**
 
 ```{r chunk4, echo=FALSE}
 
@@ -258,18 +316,17 @@ kable(female_regression_summary, caption = "Table 4: Female Sex Ratio Regression
 
 ```
 
+This analysis examined whether habitat suitability, measured at a 1.0 km² resolution, influences the sex ratio of beetle populations across 31 sampling sites. To explore this, linear regression models were constructed to investigate the relationship between habitat suitability and male and female sex ratios, respectively.
+
+**Male Sex Ratio and Habitat Suitability**: The regression analysis for male sex ratios revealed a weak negative relationship with habitat suitability, though the relationship was not statistically significant (β₁ = −0.058, p = 0.366) (`Figure 1: Male Sex Ratio vs. Habitat Suitability`). The intercept was highly significant (p \< 0.001), with a value of 0.549, indicating that, on average, male beetles made up 54.9% of the population. However, the lack of significance for the slope suggests that habitat suitability does not meaningfully predict variations in the male sex ratio across the sampled sites. The detailed regression results for the male sex ratio are provided in `Table 3: Male Sex Ratio Regression Summary`.
+
+**Female Sex Ratio and Habitat Suitability**: Similarly, the regression analysis for female sex ratios showed a weak positive relationship with habitat suitability, with no significant association (β₁ = 0.058, p = 0.366) (`Figure 2: Female Sex Ratio vs. Habitat Suitability`). Like the male model, the intercept was highly significant (p \< 0.001), with a value of 0.451, suggesting that females made up 45.1% of the population on average. The positive but non-significant slope further indicates that habitat suitability does not significantly influence the female sex ratio. Full regression results for the female sex ratio are presented in `Table 4: Female Sex Ratio Regression Summary`.
+
+**Regression Summaries**: The regression results for both male and female sex ratios are summarized in Table 3 and Table 4, respectively. For the male sex ratio, the estimated coefficient for habitat suitability was −0.058, with a standard error of 0.063, and the p-value was 0.366. For the female sex ratio, the estimated coefficient was 0.058, also with a standard error of 0.063, and the p-value was similarly 0.366. Both models exhibit weak slopes, reinforcing the lack of a significant relationship between habitat suitability and sex ratio at the sampled sites.
+
 ------------------------------------------------------------------------
 
-**4. Effect of Phenotypic Traits on Functional Relationship**
-
-*Question: Does the inclusion of `Phenotype A`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} and `Phenotype B`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} improve the functional relationship over habitat suitability alone?*
-
-\
-To examine the relationship between habitat suitability, phenotypic traits, and sex ratios, a series of linear regression models were constructed. First, the datasets were prepared by converting the `Site` column to a character format in both `site_data` and `samples_df` to ensure compatibility. The `PhenotypeA` and `PhenotypeB` variables were selected from the `samples_df` dataset, and this was merged with the `site_data` dataset based on the `Site` column.
-
-Two sets of models were fitted for both male and female sex ratios. Model 1 examined the effect of habitat suitability (`suitability_now`) on the sex ratio, while Model 2 incorporated both habitat suitability and the phenotypic traits (`PhenotypeA` and `PhenotypeB`). The summaries of these models were extracted using the `tidy()` function, providing estimates, standard errors, and significance levels. Additionally, ANOVA tests were conducted to compare Model 1 and Model 2 for both male and female sex ratios to determine the influence of the phenotypic traits over and above habitat suitability.
-
-The results of the regression models and ANOVA tests were displayed in tables, summarizing the impact of habitat suitability and phenotypes on the sex ratios at each site. These tables provided insight into the relative contributions of these factors to sex ratio variation in the studied populations.
+**Does the inclusion of `Phenotype A`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} and `Phenotype B`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} improve the functional relationship over *habitat suitability* alone?**
 
 ```{r chunk5, echo=FALSE}
 
@@ -336,16 +393,21 @@ kable(anova_female, caption = "ANOVA Comparison 2: Female Sex Ratio Models") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
+In this analysis, the aim was to evaluate the functional relationship between habitat suitability and sex ratios at various sampling locations, with a particular focus on the additional influence of phenotypic traits (Phenotype A and Phenotype B). Linear regression models were employed to examine the effects of habitat suitability and phenotypic traits on the male and female sex ratios.
+
+The analysis revealed that habitat suitability (measured as suitability_now) is a significant predictor of sex ratios for both males and females. Specifically, in `Model 1: Male Sex Ratio - Habitat Suitability Only`, there was a significant negative relationship between habitat suitability and male sex ratio, as indicated by a p-value \< 2e-16. Similarly, in `Model 3: Female Sex Ratio - Habitat Suitability Only`, habitat suitability was positively correlated with the female sex ratio, also with a highly significant p-value (\< 2e-16). These results suggest that the suitability of the environment plays a crucial role in determining sex ratio distributions at the sampling sites.
+
+When phenotypic traits were incorporated into the models, a notable improvement in explanatory power was observed. In `Model 2: Male Sex Ratio - Habitat Suitability + Phenotypes` and `Model 4: Female Sex Ratio - Habitat Suitability + Phenotypes`, the inclusion of Phenotype A and Phenotype B significantly improved model fit. Specifically, for males, Phenotype A was positively correlated with the male sex ratio, while Phenotype B showed a negative correlation. For females, the relationships were reversed: Phenotype A was negatively correlated with the female sex ratio, while Phenotype B showed a positive correlation. These findings suggest that phenotypic traits may influence sex ratio outcomes, potentially through mechanisms such as differential survival or reproductive success.
+
+Model comparisons using ANOVA confirmed the significant improvement in the models when phenotypic traits were included. `ANOVA Comparison 1: Male Sex Ratio Models` and `ANOVA Comparison 2: Female Sex Ratio Models` both showed highly significant p-values (6.6e-11 for both sexes), indicating that the addition of phenotypic traits contributed meaningfully to the models. The inclusion of these variables increased the R-squared value from 2.93% in the base models (Model 1 and Model 3) to 4.43% in the extended models (Model 2 and Model 4), suggesting that phenotypic traits provided valuable explanatory power. However, the relatively low R-squared values still indicate that other unaccounted factors may also be influencing sex ratios.
+
+These findings underscore the importance of considering both environmental and phenotypic factors when investigating sex ratio patterns in natural populations. While habitat suitability remains a critical driver of sex ratios, the inclusion of phenotypic traits provides further insight into the biological processes that may shape these ratios. This offers a more comprehensive understanding of the factors influencing sex determination in these populations.
+
+Despite these advances, the models’ low R-squared values suggest that additional variables, such as genetic factors, behavioral influences, or local environmental conditions not captured in this study, may also contribute significantly to sex ratio variation. Future research should explore these additional factors and their potential interactions with habitat suitability and phenotypic traits to further elucidate the complex determinants of sex ratios in natural populations.
+
 ------------------------------------------------------------------------
 
-**5. Change in Habitat Suitability from LGM to Present**
-
-*Question: Using the data from the last glacial maximum and the sampling locations, has the suitability changed at each location (e.g., was it as suitable 20,000 years ago as today)?*
-
-\
-To assess changes in habitat suitability between the present and the last glacial maximum (LGM), suitability values were extracted for each sampling location from the `suitability_now` and `suitability_lgm` rasters using the `extract()` function. The resulting values were stored in the `locations` dataset, and the difference between present suitability and LGM suitability was calculated as the `Suitability_change`. This data was then compiled into a new table, which was presented with a caption and formatted for clarity.
-
-A paired t-test was conducted to determine whether the difference in suitability between the present and the LGM was statistically significant. The results of the t-test, including the t-statistic, degrees of freedom, p-value, and confidence intervals, were summarized in a table. A box plot was also created to visually represent the distribution of suitability changes across the 31 sampling sites, highlighting any potential outliers. The box plot provided further insight into the variability of suitability changes over time.
+**Using the data from the last glacial maximum and the sampling locations, has the *suitability* changed at each location?**
 
 ```{r chunk6, echo=FALSE}
 
@@ -412,25 +474,21 @@ ggplot(locations, aes(y = Suitability_change)) +
   )
 ```
 
+The analysis of habitat suitability data, comparing conditions during the Last Glacial Maximum (LGM) and the present, was conducted at 31 sampling locations to assess how suitability has changed over time. The results show varying degrees of change, with some sites exhibiting relatively minor fluctuations while others demonstrated more substantial shifts.
+
+`Figure 3: Boxplot of Suitability Change from LGM to Present` presents a boxplot of suitability change across all sites. The median suitability change is approximately zero, indicating that, on the whole, habitat suitability has remained stable across most sites. This suggests that, in general, there has not been a significant shift in suitability between the LGM and present. The interquartile range (IQR), representing the middle 50% of data points, further supports this observation, with most changes falling within a narrow band around zero. This pattern reflects a general stability in suitability across the majority of locations.
+
+However, there is notable variability in the changes observed. While many sites showed only minor changes, a few sites experienced more significant shifts. For instance, Site 6, Site 12, and Site 18 exhibited substantial decreases in suitability, with changes exceeding -0.2, indicating that these sites were more suitable for the studied species during the LGM than they are today. Conversely, Site 9 and Site 16 demonstrated improvements in suitability, suggesting that these areas have become more favorable over time.
+
+An outlier is also evident in the data: Site 12 showed a particularly large negative change in suitability, with a decrease of approximately -0.31. This suggests that environmental factors at this site may have driven a more dramatic decline in habitat suitability. Further investigation into such outliers could provide valuable insights into the specific conditions or disturbances that contributed to these shifts.
+
+To assess whether the observed changes were statistically significant, a paired t-test was performed, comparing suitability values from the LGM and present. The test revealed a mean difference of -0.0276 in suitability, with a p-value of 0.2271, suggesting that the changes are not statistically significant. The 95% confidence interval for the mean difference ranged from -0.073 to 0.018, which further supports the conclusion that the changes in suitability are not different from zero on average. `Table 6: Paired t-test Results: Suitability Change (LGM to Present)` provides the detailed statistical results of the test.
+
+In conclusion, the data indicate a general trend of stability in habitat suitability across the 31 sampling locations. While some sites showed minor positive or negative changes, the majority of locations exhibited minimal fluctuation. The presence of significant outliers, particularly in the case of Site 12, underscores the importance of considering localized environmental factors that could drive more pronounced shifts in habitat suitability. Although the paired t-test did not find significant overall changes, the variability observed across sites warrants further investigation into the specific ecological processes and environmental factors influencing suitability at individual locations. Such insights are crucial for informing conservation efforts, particularly in the context of ongoing climate change and habitat restoration initiatives. `Table 5: Suitability Change Across Sampling Locations` summarizes the suitability changes observed across all sites.
+
 ------------------------------------------------------------------------
 
-**6. Predicting Historical Sex Ratios**
-
-*Question: Predict the distribution of the historical sex ratio by applying the model you developed for current conditions to the suitability estimated from the last glacial maximum. Across the landscape, do you detect any trends that may be due to the differences in climate, as measured by our estimates of habitat suitability?*
-
-In this analysis, several steps will be undertaken to examine sex ratio divergence among *Araptus attenuatus* populations in relation to habitat suitability.
-
-First, the coordinates (longitude and latitude) of each site will be extracted from the `locations` dataset. These coordinates will be used to extract habitat suitability values from the `suitability_now` and `suitability_lgm` raster datasets for both current and historical conditions.
-
-Next, the sex ratios for each site will be calculated by aggregating the data from the `samples` dataset. For each site, the number of males and females will be summed, and the corresponding habitat suitability value for each site will be retrieved by matching the site names to the suitability data. The sex ratio will be computed as the proportion of males to the total number of individuals at each site. Sites with missing suitability data or a total of zero individuals will be excluded from further analysis.
-
-To explore the relationship between sex ratio and habitat suitability, a generalized linear model (GLM) with a binomial family will be fitted, where the sex ratio will be modeled as a function of the current habitat suitability (`suitability_now`). This model will be used to predict the sex ratio for each site under historical conditions using the `suitability_lgm` values. The predicted sex ratios will be transformed using the logistic function to obtain estimates of sex ratios under the historical habitat conditions.
-
-For visualization, scatter plots will be created to show the current and historical sex ratios against habitat suitability. Linear regression lines will be included on these plots to illustrate any trends. Both plots will be displayed together for comparison. Additionally, a summary table of the sex ratios for each site across the two time periods will be created, highlighting the differences in sex ratios between the current and historical periods.
-
-Finally, habitat suitability maps will be generated by converting the raster data for both current and historical suitability into data frames using the `rasterToPoints` function. These data frames will be used to create spatial maps of habitat suitability across the study area. The maps will be visualized using `ggplot2`, with color gradients representing the variation in habitat suitability.
-
-By following these methods, the analysis will assess how changes in habitat suitability have influenced sex ratio divergence among *Araptus attenuatus* populations.
+**Predict the distribution of the historical sex ratio by applying the model you developed for current conditions to the *suitability* estimated from the last glacial maximum. Across the landscape, do you detect any trends that may be due to the differences in climate, as measured by our estimates of *habitat suitability?***
 
 ```{r chunk7, echo=FALSE}
 
@@ -589,74 +647,6 @@ print(historical_suitability_map)
 
 print(current_suitability_map)
 ```
-
-## Results:
-
-**Do sampled populations of the beetle have different sex ratios? You can consider the plant to be replicated within each site.**
-
-The results of this analysis indicate that the sampled populations of the beetle exhibit different sex ratios across the various sites. For each site, the number of male and female beetles was recorded, and the sex ratio was calculated as the proportion of males to total individuals. The sex ratios varied significantly between sites, with male proportions ranging from 0.40 to 0.69 (40% to 69% male), and female proportions ranging from 0.31 to 0.60 (31% to 60% female).
-
-As shown in `Table 1: Sex Ratios Across Sampling Sites`, Site 1 had a male proportion of 0.46 and a female proportion of 0.54. In contrast, Site 10 exhibited a higher male proportion of 0.60, with the female proportion being 0.40. Other sites, such as Site 11 and Site 12, displayed more balanced ratios, with male proportions of 0.56 and 0.54, respectively. Notably, Site 14 had the lowest male proportion of 0.40, with females comprising 60% of the population. Conversely, Site 18 demonstrated the highest male proportion of 0.69, with females accounting for only 31% of the population.
-
-These findings, summarized in Table 1, suggest that there is notable variation in the sex ratios of beetle populations across the sampled sites. Given that the plant is considered to be replicated within each site, the variation in sex ratios may be influenced by factors at the site level, such as environmental conditions or other ecological variables. The observed differences in sex ratios across sites indicate that the populations are not uniform, and further investigation is required to explore the potential causes behind these variations.
-
-------------------------------------------------------------------------
-
-**Which sites have sex ratios that deviate from equal proportions of males and females at the site?**
-
-This analysis aimed to determine whether the sampled populations of the beetle exhibited different sex ratios across various sites. The results indicate that several sites demonstrated significant deviations from the expected 50:50 male-to-female ratio. As shown in `Table 2: Sites with Significant Deviations in Sex Ratio (p < 0.05)`, Sites 10, 14, 17, 18, 20, 21, 29, and 9 exhibited p-values less than 0.05, indicating that the observed sex ratios at these sites were significantly different from equal proportions.
-
-For example, Site 18 had a notably higher male ratio of 0.69, while Site 9 exhibited a higher female ratio of 0.63. These deviations suggest that, at these sites, factors influencing sex determination or survival may be skewing the sex ratio. Some sites, such as Site 10 and Site 14, showed more moderate imbalances, with a male ratio of 0.60 at Site 10 and 0.40 at Site 14. However, the statistical evidence supports the conclusion that sex ratios at these sites are not random.
-
-The findings provide compelling evidence that populations across the surveyed sites do not exhibit equal sex ratios. The results summarized in Table 2 highlight the need for further investigation into the factors contributing to these differences, as they may provide insights into underlying ecological, environmental, or genetic processes influencing beetle population dynamics. Understanding the causes of such deviations is crucial for interpreting population trends and can inform conservation and management strategies, particularly in light of environmental changes that may further impact sex ratio distributions.
-
-------------------------------------------------------------------------
-
-**Is there a functional relationship between the *habitat suitability* at the sampling locations and the sex ratio? Since all of our suitability measurements are taken from raster data with a cell size of 1.0 km^~2~^ (e.g., all plants are in the same grid cell), collapse the sex ratio estimates to a single value per site.**
-
-This analysis examined whether habitat suitability, measured at a 1.0 km² resolution, influences the sex ratio of beetle populations across 31 sampling sites. To explore this, linear regression models were constructed to investigate the relationship between habitat suitability and male and female sex ratios, respectively.
-
-**Male Sex Ratio and Habitat Suitability**: The regression analysis for male sex ratios revealed a weak negative relationship with habitat suitability, though the relationship was not statistically significant (β₁ = −0.058, p = 0.366) (`Figure 1: Male Sex Ratio vs. Habitat Suitability`). The intercept was highly significant (p \< 0.001), with a value of 0.549, indicating that, on average, male beetles made up 54.9% of the population. However, the lack of significance for the slope suggests that habitat suitability does not meaningfully predict variations in the male sex ratio across the sampled sites. The detailed regression results for the male sex ratio are provided in `Table 3: Male Sex Ratio Regression Summary`.
-
-**Female Sex Ratio and Habitat Suitability**: Similarly, the regression analysis for female sex ratios showed a weak positive relationship with habitat suitability, with no significant association (β₁ = 0.058, p = 0.366) (`Figure 2: Female Sex Ratio vs. Habitat Suitability`). Like the male model, the intercept was highly significant (p \< 0.001), with a value of 0.451, suggesting that females made up 45.1% of the population on average. The positive but non-significant slope further indicates that habitat suitability does not significantly influence the female sex ratio. Full regression results for the female sex ratio are presented in `Table 4: Female Sex Ratio Regression Summary`.
-
-**Regression Summaries**: The regression results for both male and female sex ratios are summarized in Table 3 and Table 4, respectively. For the male sex ratio, the estimated coefficient for habitat suitability was −0.058, with a standard error of 0.063, and the p-value was 0.366. For the female sex ratio, the estimated coefficient was 0.058, also with a standard error of 0.063, and the p-value was similarly 0.366. Both models exhibit weak slopes, reinforcing the lack of a significant relationship between habitat suitability and sex ratio at the sampled sites.
-
-------------------------------------------------------------------------
-
-**Does the inclusion of `Phenotype A`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} and `Phenotype B`{style="font-family: Monaco, Menlo, Consolas, \"Courier New\", monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;"} improve the functional relationship over *habitat suitability* alone?**
-
-In this analysis, the aim was to evaluate the functional relationship between habitat suitability and sex ratios at various sampling locations, with a particular focus on the additional influence of phenotypic traits (Phenotype A and Phenotype B). Linear regression models were employed to examine the effects of habitat suitability and phenotypic traits on the male and female sex ratios.
-
-The analysis revealed that habitat suitability (measured as suitability_now) is a significant predictor of sex ratios for both males and females. Specifically, in `Model 1: Male Sex Ratio - Habitat Suitability Only`, there was a significant negative relationship between habitat suitability and male sex ratio, as indicated by a p-value \< 2e-16. Similarly, in `Model 3: Female Sex Ratio - Habitat Suitability Only`, habitat suitability was positively correlated with the female sex ratio, also with a highly significant p-value (\< 2e-16). These results suggest that the suitability of the environment plays a crucial role in determining sex ratio distributions at the sampling sites.
-
-When phenotypic traits were incorporated into the models, a notable improvement in explanatory power was observed. In `Model 2: Male Sex Ratio - Habitat Suitability + Phenotypes` and `Model 4: Female Sex Ratio - Habitat Suitability + Phenotypes`, the inclusion of Phenotype A and Phenotype B significantly improved model fit. Specifically, for males, Phenotype A was positively correlated with the male sex ratio, while Phenotype B showed a negative correlation. For females, the relationships were reversed: Phenotype A was negatively correlated with the female sex ratio, while Phenotype B showed a positive correlation. These findings suggest that phenotypic traits may influence sex ratio outcomes, potentially through mechanisms such as differential survival or reproductive success.
-
-Model comparisons using ANOVA confirmed the significant improvement in the models when phenotypic traits were included. `ANOVA Comparison 1: Male Sex Ratio Models` and `ANOVA Comparison 2: Female Sex Ratio Models` both showed highly significant p-values (6.6e-11 for both sexes), indicating that the addition of phenotypic traits contributed meaningfully to the models. The inclusion of these variables increased the R-squared value from 2.93% in the base models (Model 1 and Model 3) to 4.43% in the extended models (Model 2 and Model 4), suggesting that phenotypic traits provided valuable explanatory power. However, the relatively low R-squared values still indicate that other unaccounted factors may also be influencing sex ratios.
-
-These findings underscore the importance of considering both environmental and phenotypic factors when investigating sex ratio patterns in natural populations. While habitat suitability remains a critical driver of sex ratios, the inclusion of phenotypic traits provides further insight into the biological processes that may shape these ratios. This offers a more comprehensive understanding of the factors influencing sex determination in these populations.
-
-Despite these advances, the models’ low R-squared values suggest that additional variables, such as genetic factors, behavioral influences, or local environmental conditions not captured in this study, may also contribute significantly to sex ratio variation. Future research should explore these additional factors and their potential interactions with habitat suitability and phenotypic traits to further elucidate the complex determinants of sex ratios in natural populations.
-
-------------------------------------------------------------------------
-
-**Using the data from the last glacial maximum and the sampling locations, has the *suitability* changed at each location (e.g., was it as suitable 20,000 years ago as today)?**
-
-The analysis of habitat suitability data, comparing conditions during the Last Glacial Maximum (LGM) and the present, was conducted at 31 sampling locations to assess how suitability has changed over time. The results show varying degrees of change, with some sites exhibiting relatively minor fluctuations while others demonstrated more substantial shifts.
-
-`Figure 3: Boxplot of Suitability Change from LGM to Present` presents a boxplot of suitability change across all sites. The median suitability change is approximately zero, indicating that, on the whole, habitat suitability has remained stable across most sites. This suggests that, in general, there has not been a significant shift in suitability between the LGM and present. The interquartile range (IQR), representing the middle 50% of data points, further supports this observation, with most changes falling within a narrow band around zero. This pattern reflects a general stability in suitability across the majority of locations.
-
-However, there is notable variability in the changes observed. While many sites showed only minor changes, a few sites experienced more significant shifts. For instance, Site 6, Site 12, and Site 18 exhibited substantial decreases in suitability, with changes exceeding -0.2, indicating that these sites were more suitable for the studied species during the LGM than they are today. Conversely, Site 9 and Site 16 demonstrated improvements in suitability, suggesting that these areas have become more favorable over time.
-
-An outlier is also evident in the data: Site 12 showed a particularly large negative change in suitability, with a decrease of approximately -0.31. This suggests that environmental factors at this site may have driven a more dramatic decline in habitat suitability. Further investigation into such outliers could provide valuable insights into the specific conditions or disturbances that contributed to these shifts.
-
-To assess whether the observed changes were statistically significant, a paired t-test was performed, comparing suitability values from the LGM and present. The test revealed a mean difference of -0.0276 in suitability, with a p-value of 0.2271, suggesting that the changes are not statistically significant. The 95% confidence interval for the mean difference ranged from -0.073 to 0.018, which further supports the conclusion that the changes in suitability are not different from zero on average. `Table 6: Paired t-test Results: Suitability Change (LGM to Present)` provides the detailed statistical results of the test.
-
-In conclusion, the data indicate a general trend of stability in habitat suitability across the 31 sampling locations. While some sites showed minor positive or negative changes, the majority of locations exhibited minimal fluctuation. The presence of significant outliers, particularly in the case of Site 12, underscores the importance of considering localized environmental factors that could drive more pronounced shifts in habitat suitability. Although the paired t-test did not find significant overall changes, the variability observed across sites warrants further investigation into the specific ecological processes and environmental factors influencing suitability at individual locations. Such insights are crucial for informing conservation efforts, particularly in the context of ongoing climate change and habitat restoration initiatives. `Table 5: Suitability Change Across Sampling Locations` summarizes the suitability changes observed across all sites.
-
-------------------------------------------------------------------------
-
-**Predict the distribution of the historical sex ratio by applying the model you developed for current conditions to the *suitability* estimated from the last glacial maximum. Across the landscape, do you detect any trends that may be due to the differences in climate, as measured by our estimates of *habitat suitability?***
 
 To understand the influence of climatic changes on the sex ratio distribution of *Araptus attenuatus*, a model developed for current conditions was applied to habitat suitability estimates from the Last Glacial Maximum (LGM). Using the current habitat suitability data, a generalized linear model (GLM) was built to predict sex ratios based on habitat suitability. This model was then applied to the LGM habitat suitability data to predict historical sex ratios.
 
