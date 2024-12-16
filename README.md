@@ -32,4 +32,4 @@ My Class Repository: Data Literacy (ENVS 543)
 
 - [Non-Parametric & Counting Statistics Activity](https://briallman.github.io/ENVS543-Data-Literacy/NonParametric.html)
 
-- [Non-Parametric & Counting Statistics Activity](https://briallman.github.io/ENVS543-Data-Literacy/Final.html)
+- [Final](https://briallman.github.io/ENVS543-Data-Literacy/Final.html)
