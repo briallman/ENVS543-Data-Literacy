@@ -13,7 +13,7 @@ Additionally, the study will assess if the inclusion of morphological traits, su
 
 ## Methods:
 
-#### Data Overview 
+#### Data Overview
 
 The analysis utilizes four datasets to explore the relationship between habitat suitability and sex ratio divergence in *Araptus attenuatus* across different climate conditions, both current and historical.
 
