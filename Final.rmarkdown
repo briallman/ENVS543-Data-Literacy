@@ -5,6 +5,8 @@ date: "12/07/2024"
 format: html
 ---
 
+
+
 ## Introduction
 
 The sex ratio of *Araptus attenuatus*, a bark beetle species inhabiting *Euphorbia lomelli* plants in the Sonora Desert, may vary across different populations, potentially influenced by local environmental factors. Understanding the extent to which changing climate may have impacted sex ratio divergence among populations is critical for exploring the species' evolutionary and ecological dynamics. This study aims to determine whether sampled populations of the beetle exhibit different sex ratios and to identify which sites show significant deviations from the expected 1:1 male-to-female ratio. By aggregating the data at the site level and considering plant replication within each site, the study will examine whether local habitat suitability, as indicated by niche modeling, is related to these observed differences in sex ratio.
@@ -38,6 +40,8 @@ This raster dataset estimates habitat suitability during the Last Glacial Maximu
 Together, these datasets allow for a comprehensive analysis of how changing habitat suitability, both currently and historically, influences the sex ratio of *Araptus attenuatus*. The combination of spatial, population, and environmental data helps to reveal trends in sex ratio divergence linked to ecological and climatic factors.
 
 ------------------------------------------------------------------------
+
+
 
 ```{r setup, include=FALSE}
 
@@ -77,6 +81,8 @@ crs_now <- crs(suitability_now)
 crs_lgm <- crs(suitability_lgm)
 ```
 
+
+
 ------------------------------------------------------------------------
 
 **1. Sex Ratio Analysis Across Populations**
@@ -85,6 +91,8 @@ crs_lgm <- crs(suitability_lgm)
 
 \
 To determine if the sex ratios differ among sampled populations, the proportion of males and females for each site will be calculated.
+
+
 
 ```{r chunk2, echo=FALSE}
 
@@ -118,6 +126,8 @@ sex_ratio %>%
   column_spec(6, color = "red")
 ```
 
+
+
 ------------------------------------------------------------------------
 
 **2. Identifying Sites with Deviations from Equal Sex Ratios**
@@ -126,6 +136,8 @@ sex_ratio %>%
 
 \
 For each site, statistical tests (e.g., chi-square goodness-of-fit tests) will identify sites where the sex ratio significantly deviates from equal proportions. Results will be summarized in a table.
+
+
 
 ```{r chunk3, echo=FALSE}
 
@@ -160,6 +172,8 @@ deviant_sites_with_locations %>%
   column_spec(7, color = "red")
 ```
 
+
+
 ------------------------------------------------------------------------
 
 **3. Functional Relationship Between Habitat Suitability and Sex Ratio**
@@ -168,6 +182,8 @@ deviant_sites_with_locations %>%
 
 \
 The habitat suitability index from raster data will be linked to the sampling locations using spatial joins. Sex ratios will be collapsed to a single value per site, and a regression model will evaluate the relationship between habitat suitability and sex ratios.
+
+
 
 ```{r chunk4, echo=FALSE}
 
@@ -256,6 +272,8 @@ kable(female_regression_summary, caption = "Table 4: Female Sex Ratio Regression
 
 ```
 
+
+
 ------------------------------------------------------------------------
 
 **4. Effect of Phenotypic Traits on Functional Relationship**
@@ -264,6 +282,8 @@ kable(female_regression_summary, caption = "Table 4: Female Sex Ratio Regression
 
 \
 Phenotype A and Phenotype B will be incorporated as additional predictors in a multivariate regression model to determine if they improve the explanatory power of the habitat-suitability model.
+
+
 
 ```{r chunk5, echo=FALSE}
 
@@ -330,6 +350,8 @@ kable(anova_female, caption = "ANOVA Comparison 2: Female Sex Ratio Models") %>%
   kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
+
+
 ------------------------------------------------------------------------
 
 **5. Change in Habitat Suitability from LGM to Present**
@@ -338,6 +360,8 @@ kable(anova_female, caption = "ANOVA Comparison 2: Female Sex Ratio Models") %>%
 
 \
 Raster data representing habitat suitability from the Last Glacial Maximum (LGM) and the present will be extracted for each sampling site. Paired t-tests will assess if suitability has changed significantly over time.
+
+
 
 ```{r chunk6, echo=FALSE}
 
@@ -404,6 +428,8 @@ ggplot(locations, aes(y = Suitability_change)) +
   )
 ```
 
+
+
 ------------------------------------------------------------------------
 
 **6. Predicting Historical Sex Ratios**
@@ -412,6 +438,8 @@ ggplot(locations, aes(y = Suitability_change)) +
 
 \
 The regression model developed for current conditions will be applied to the LGM suitability data to predict historical sex ratios. These predictions will be visualized spatially to identify trends influenced by historical climate conditions.
+
+
 
 ```{r chunk7, echo=FALSE}
 
@@ -572,6 +600,8 @@ print(historical_suitability_map)
 print(current_suitability_map)
 ```
 
+
+
 ## Results:
 
 **Do sampled populations of the beetle have different sex ratios? You can consider the plant to be replicated within each site.**
@@ -683,3 +713,4 @@ Moreover, integrating genetic analyses with demographic data could help reveal w
 #### Conclusion
 
 In conclusion, the study highlights the potential for climate change to drive sex ratio divergence among *Araptus attenuatus* populations in the Sonora Desert. While the data suggest that temperature and habitat suitability are key factors influencing sex ratio patterns, the complex interplay of climate variables, local environmental stressors, and genetic factors warrants further investigation. By better understanding the mechanisms behind sex ratio divergence in response to climate change, we can develop more effective conservation strategies to mitigate the impacts of a warming climate on this species and other desert-adapted organisms.
+
