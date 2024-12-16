@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>1. Sex Ratio Analysis Across Populations</strong></p>
 <p><em>Question: Do sampled populations of the beetle have different sex ratios? You can consider the plant to be replicated within each site.</em></p>
 <p><br>
-To determine if the sex ratios differ among sampled populations, the proportion of males and females for each site will be calculated.</p>
+The sex ratio for <em>Araptus attenuatus</em> across different sampling sites was calculated by grouping the data by site and summarizing the number of males and females within each group. The total number of individuals per site was also computed by summing the male and female counts. Ratios for males and females were then determined by dividing the respective counts by the total number of individuals at each site. The results were compiled into a table, which includes the site name, counts of males, females, total individuals, and the calculated male and female ratios. The table was formatted for clarity using the <code>kable</code> function, with customized styling for readability, including bolded site names and color-coded columns for the male and female ratios.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
@@ -387,7 +387,7 @@ To determine if the sex ratios differ among sampled populations, the proportion 
 <p><strong>2. Identifying Sites with Deviations from Equal Sex Ratios</strong></p>
 <p><em>Question: Which sites have sex ratios that deviate from equal proportions of males and females at the site?</em></p>
 <p><br>
-For each site, statistical tests (e.g., chi-square goodness-of-fit tests) will identify sites where the sex ratio significantly deviates from equal proportions. Results will be summarized in a table.</p>
+A chi-square test was applied to assess whether the sex ratio in each sampling site deviated significantly from the expected 1:1 male-to-female ratio. The test was performed by comparing the observed counts of males and females at each site to the expected counts (assuming a 50% male and 50% female ratio). The p-values from the chi-square tests were calculated and added as a new column in the dataset. Sites with significant deviations, identified by a p-value less than 0.05, were filtered for further analysis. The results were then merged with geographic location data for each site. The table presenting these findings includes the site name, counts of males, females, total individuals, male and female ratios, the calculated p-value, and the corresponding longitude and latitude of each site. The table was formatted using the <code>kable</code> function, with specific styling to highlight the p-values in red and bold the site names for emphasis.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed caption-top table-sm small" data-quarto-postprocess="true">
@@ -504,7 +504,8 @@ For each site, statistical tests (e.g., chi-square goodness-of-fit tests) will i
 <p><strong>3. Functional Relationship Between Habitat Suitability and Sex Ratio</strong></p>
 <p><em>Question: Is there a functional relationship between the habitat suitability at the sampling locations and the sex ratio? Since all of our suitability measurements are taken from raster data with a cell size of 1.0 km<sup><sub>2</sub></sup> (e.g., all plants are in the same grid cell), collapse the sex ratio estimates to a single value per site.</em></p>
 <p><br>
-The habitat suitability index from raster data will be linked to the sampling locations using spatial joins. Sex ratios will be collapsed to a single value per site, and a regression model will evaluate the relationship between habitat suitability and sex ratios.</p>
+To explore the relationship between sex ratios and habitat suitability, the sex ratio of males and females was summarized for each sampling site. The dataset was grouped by site, and the number of males and females, as well as the male and female ratios, were calculated. Suitability values for each site were then extracted from the <code>suitability_now</code> raster dataset based on the geographic coordinates (longitude and latitude) of the sampling sites. These suitability values were averaged when multiple values were returned for a single site. Sites with missing suitability data were excluded from further analysis.</p>
+<p>The dataset, now containing sex ratio data and habitat suitability values for each site, was used to create scatter plots to visualize the relationship between habitat suitability and the male or female sex ratio. Linear regression models were fitted to the data for both male and female ratios as a function of habitat suitability. These regression models were summarized and presented in tables. The plots were arranged to show the male and female sex ratio trends in relation to habitat suitability, and the regression summaries for both male and female sex ratios were displayed in separate tables.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'
@@ -586,7 +587,9 @@ The habitat suitability index from raster data will be linked to the sampling lo
 <p><strong>4. Effect of Phenotypic Traits on Functional Relationship</strong></p>
 <p><em>Question: Does the inclusion of <code style="font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;">Phenotype A</code> and <code style="font-family: Monaco, Menlo, Consolas, &quot;Courier New&quot;, monospace; font-size: 0.75rem; border-radius: 6px; background-color: rgb(245, 245, 245); border: 1px solid rgb(199, 205, 209); padding: 0.125rem 0.25rem; color: rgb(224, 6, 31); text-size-adjust: auto;">Phenotype B</code> improve the functional relationship over habitat suitability alone?</em></p>
 <p><br>
-Phenotype A and Phenotype B will be incorporated as additional predictors in a multivariate regression model to determine if they improve the explanatory power of the habitat-suitability model.</p>
+To examine the relationship between habitat suitability, phenotypic traits, and sex ratios, a series of linear regression models were constructed. First, the datasets were prepared by converting the <code>Site</code> column to a character format in both <code>site_data</code> and <code>samples_df</code> to ensure compatibility. The <code>PhenotypeA</code> and <code>PhenotypeB</code> variables were selected from the <code>samples_df</code> dataset, and this was merged with the <code>site_data</code> dataset based on the <code>Site</code> column.</p>
+<p>Two sets of models were fitted for both male and female sex ratios. Model 1 examined the effect of habitat suitability (<code>suitability_now</code>) on the sex ratio, while Model 2 incorporated both habitat suitability and the phenotypic traits (<code>PhenotypeA</code> and <code>PhenotypeB</code>). The summaries of these models were extracted using the <code>tidy()</code> function, providing estimates, standard errors, and significance levels. Additionally, ANOVA tests were conducted to compare Model 1 and Model 2 for both male and female sex ratios to determine the influence of the phenotypic traits over and above habitat suitability.</p>
+<p>The results of the regression models and ANOVA tests were displayed in tables, summarizing the impact of habitat suitability and phenotypes on the sex ratios at each site. These tables provided insight into the relative contributions of these factors to sex ratio variation in the studied populations.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
@@ -825,7 +828,8 @@ Phenotype A and Phenotype B will be incorporated as additional predictors in a m
 <p><strong>5. Change in Habitat Suitability from LGM to Present</strong></p>
 <p><em>Question: Using the data from the last glacial maximum and the sampling locations, has the suitability changed at each location (e.g., was it as suitable 20,000 years ago as today)?</em></p>
 <p><br>
-Raster data representing habitat suitability from the Last Glacial Maximum (LGM) and the present will be extracted for each sampling site. Paired t-tests will assess if suitability has changed significantly over time.</p>
+To assess changes in habitat suitability between the present and the last glacial maximum (LGM), suitability values were extracted for each sampling location from the <code>suitability_now</code> and <code>suitability_lgm</code> rasters using the <code>extract()</code> function. The resulting values were stored in the <code>locations</code> dataset, and the difference between present suitability and LGM suitability was calculated as the <code>Suitability_change</code>. This data was then compiled into a new table, which was presented with a caption and formatted for clarity.</p>
+<p>A paired t-test was conducted to determine whether the difference in suitability between the present and the LGM was statistically significant. The results of the t-test, including the t-statistic, degrees of freedom, p-value, and confidence intervals, were summarized in a table. A box plot was also created to visually represent the distribution of suitability changes across the 31 sampling sites, highlighting any potential outliers. The box plot provided further insight into the variability of suitability changes over time.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-striped table-hover caption-top table-sm small" data-quarto-postprocess="true">
@@ -1084,8 +1088,13 @@ Raster data representing habitat suitability from the Last Glacial Maximum (LGM)
 <hr>
 <p><strong>6. Predicting Historical Sex Ratios</strong></p>
 <p><em>Question: Predict the distribution of the historical sex ratio by applying the model you developed for current conditions to the suitability estimated from the last glacial maximum. Across the landscape, do you detect any trends that may be due to the differences in climate, as measured by our estimates of habitat suitability?</em></p>
-<p><br>
-The regression model developed for current conditions will be applied to the LGM suitability data to predict historical sex ratios. These predictions will be visualized spatially to identify trends influenced by historical climate conditions.</p>
+<p>In this analysis, several steps will be undertaken to examine sex ratio divergence among <em>Araptus attenuatus</em> populations in relation to habitat suitability.</p>
+<p>First, the coordinates (longitude and latitude) of each site will be extracted from the <code>locations</code> dataset. These coordinates will be used to extract habitat suitability values from the <code>suitability_now</code> and <code>suitability_lgm</code> raster datasets for both current and historical conditions.</p>
+<p>Next, the sex ratios for each site will be calculated by aggregating the data from the <code>samples</code> dataset. For each site, the number of males and females will be summed, and the corresponding habitat suitability value for each site will be retrieved by matching the site names to the suitability data. The sex ratio will be computed as the proportion of males to the total number of individuals at each site. Sites with missing suitability data or a total of zero individuals will be excluded from further analysis.</p>
+<p>To explore the relationship between sex ratio and habitat suitability, a generalized linear model (GLM) with a binomial family will be fitted, where the sex ratio will be modeled as a function of the current habitat suitability (<code>suitability_now</code>). This model will be used to predict the sex ratio for each site under historical conditions using the <code>suitability_lgm</code> values. The predicted sex ratios will be transformed using the logistic function to obtain estimates of sex ratios under the historical habitat conditions.</p>
+<p>For visualization, scatter plots will be created to show the current and historical sex ratios against habitat suitability. Linear regression lines will be included on these plots to illustrate any trends. Both plots will be displayed together for comparison. Additionally, a summary table of the sex ratios for each site across the two time periods will be created, highlighting the differences in sex ratios between the current and historical periods.</p>
+<p>Finally, habitat suitability maps will be generated by converting the raster data for both current and historical suitability into data frames using the <code>rasterToPoints</code> function. These data frames will be used to create spatial maps of habitat suitability across the study area. The maps will be visualized using <code>ggplot2</code>, with color gradients representing the variation in habitat suitability.</p>
+<p>By following these methods, the analysis will assess how changes in habitat suitability have influenced sex ratio divergence among <em>Araptus attenuatus</em> populations.</p>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'
@@ -1421,8 +1430,6 @@ The regression model developed for current conditions will be applied to the LGM
 
 
 </div>
-</div>
-<div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: The `size` argument of `element_line()` is deprecated as of ggplot2 3.4.0.
 ℹ Please use the `linewidth` argument instead.</code></pre>
@@ -1430,14 +1437,14 @@ The regression model developed for current conditions will be applied to the LGM
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Final_files/figure-html/chunk8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Final_files/figure-html/chunk7-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Final_files/figure-html/chunk8-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Final_files/figure-html/chunk7-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
