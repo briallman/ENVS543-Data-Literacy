@@ -659,35 +659,3 @@ To further support this analysis, a detailed table (`Table 7: Sex Ratios Across 
 Figures 6 (`Figure 6: Historical Habitat Suitability for Araptus attenuatus`) and 7 (`Figure 7: Current Habitat Suitability for Araptus attenuatus`) further support this analysis spatially by illustrating the habitat suitability for *Araptus attenuatus* during both current and historical periods. These figures visually reinforce the patterns observed in the scatter plots and table, providing additional context for understanding how spatial variability in habitat suitability has influenced sex ratio distributions over time.
 
 In summary, the application of the current conditions model to historical habitat suitability data revealed that climatic differences during the LGM had a stronger influence on sex ratios. This trend underscores the importance of climate in shaping the distribution and dynamics of *Araptus attenuatus* populations across the landscape. Additionally, the close alignment of historical data points with the trendline suggests potential areas for model improvement to capture more variability. The detailed table further supports the analysis by providing specific sex ratios for both current and historical periods across various sites.
-
-------------------------------------------------------------------------
-
-## Discussion
-
-The primary goal of this study was to explore the extent to which changing climate may have influenced sex ratio divergence across different locations in the Sonora Desert bark beetle, *Araptus attenuatus*. As climate change continues to impact ecosystems worldwide, it is critical to assess how these shifts may affect population dynamics and the genetic structure of species, particularly those with limited mobility or specialized habitat requirements, such as *A. attenuatus*.
-
-In examining the sex ratio data across 31 sampling sites within the Sonora Desert, it became apparent that climate-related factors could be playing a significant role in influencing sex ratio patterns. Several key findings emerged from this analysis, shedding light on potential connections between climatic shifts and observed sex ratio divergence.
-
-#### Temperature and Habitat Suitability
-
-One of the most striking results of the study is the relationship between temperature trends and the sex ratio divergence across the various sites. Warmer temperatures, associated with climate change, may be contributing to differential survival and reproductive success between male and female beetles. In many insect species, including beetles, temperature has been shown to affect the development and sex determination processes, leading to skewed sex ratios in certain environments. For example, in ectothermic species, such as *A. attenuatus*, temperature may influence the rate of development, growth, and survival of male and female individuals differently, potentially leading to higher mortality rates for one sex under specific climatic conditions.
-
-Our analysis of habitat suitability, based on the current climate and the Last Glacial Maximum (LGM) conditions, further supported the idea that climate-induced changes in habitat availability may be influencing the distribution of *A. attenuatus* populations. Sites with more suitable current habitat conditions, indicated by higher suitability index values, were often associated with less pronounced sex ratio divergence. In contrast, areas with marginal habitat conditions, such as those affected by temperature extremes or drought, exhibited greater sex ratio imbalances. This suggests that as climate change alters habitat suitability, it could be indirectly influencing the balance of male and female populations.
-
-#### Local Environmental Stressors and Sex Ratio Divergence
-
-The divergence in sex ratios among sites may also be attributed to local environmental stressors exacerbated by climate change. Factors such as drought, changes in precipitation patterns, and the increased frequency of extreme weather events could further compound the effects of rising temperatures on beetle populations. Drought stress, for instance, can negatively impact the availability of resources for beetles, which in turn could influence their reproductive output and survival. Under such conditions, one sex may be more vulnerable than the other, potentially leading to skewed sex ratios.
-
-Additionally, the potential for genetic or adaptive factors to play a role in sex ratio divergence should not be overlooked. Populations in more extreme environments may exhibit adaptations that influence their reproductive strategies, such as skewed sex ratios as a response to environmental pressures. Further investigation into the genetic basis of sex determination in *A. attenuatus* would be necessary to determine whether these patterns are driven by evolutionary or phenotypic plasticity mechanisms in response to climate change.
-
-#### Implications for Future Research
-
-While this study suggests a potential link between climate change and sex ratio divergence in *A. attenuatus*, it is important to note that several confounding factors may also contribute to the observed patterns. For example, differences in habitat quality, interspecific competition, and predation pressures could also influence sex ratios independently of climate factors. Additionally, the temporal scale of climate change effects on population dynamics may vary, and the observed sex ratio imbalances may reflect short-term fluctuations rather than long-term trends.
-
-Further studies examining the long-term impacts of climate change on *A. attenuatus* populations across broader spatial scales and over extended periods would be valuable in confirming the role of climate in shaping sex ratio patterns. Incorporating other climate variables, such as shifts in humidity, precipitation, and the frequency of extreme weather events, would provide a more comprehensive understanding of how climate change is influencing sex ratio divergence in this species.
-
-Moreover, integrating genetic analyses with demographic data could help reveal whether climate-induced changes in sex ratios are driven by adaptive responses or simply reflect ecological pressures. Understanding the genetic underpinnings of sex determination and the potential for climate-driven selection will be crucial for predicting how populations of *A. attenuatus* may respond to future climate scenarios.
-
-#### Conclusion
-
-In conclusion, the study highlights the potential for climate change to drive sex ratio divergence among *Araptus attenuatus* populations in the Sonora Desert. While the data suggest that temperature and habitat suitability are key factors influencing sex ratio patterns, the complex interplay of climate variables, local environmental stressors, and genetic factors warrants further investigation. By better understanding the mechanisms behind sex ratio divergence in response to climate change, we can develop more effective conservation strategies to mitigate the impacts of a warming climate on this species and other desert-adapted organisms.
